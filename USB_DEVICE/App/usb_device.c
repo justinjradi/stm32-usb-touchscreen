@@ -37,6 +37,7 @@ int TIP_SWITCH_SET = 0b10000000;
 int CONTACT_RESET = 0;
 int CONTACT_REMOVED = -1;
 int CONTACT_SET = 1;
+int DELAY_AFTER_SENDING = 100;
 
 typedef struct
 {
@@ -83,12 +84,8 @@ int touchscreen_set_contact(uint8_t ID, uint16_t x, uint16_t y)
 	{
 		return TOUCHSCREEN_FAILURE;
 	}
-	if (contact_states[ID] != CONTACT_SET)
-	{
-		contact_states[ID] = CONTACT_SET;
-		touchReport.contacts[ID].tip_switch = TIP_SWITCH_SET;
-		touchReport.contact_count++;
-	}
+	contact_states[ID] = CONTACT_SET;
+	touchReport.contacts[ID].tip_switch = TIP_SWITCH_SET;
 	touchReport.contacts[ID].x = x;
 	touchReport.contacts[ID].y = y;
 	return TOUCHSCREEN_SUCCESS;
@@ -96,13 +93,12 @@ int touchscreen_set_contact(uint8_t ID, uint16_t x, uint16_t y)
 
 int touchscreen_remove_contact(uint8_t ID)
 {
-	if ((ID >= MAX_CONTACT_COUNT) || (contact_states[ID != CONTACT_SET]))
+	if (ID >= MAX_CONTACT_COUNT)
 	{
 		return TOUCHSCREEN_FAILURE;
 	}
 	contact_states[ID] = CONTACT_REMOVED;
 	touchReport.contacts[ID].tip_switch = TIP_SWITCH_RESET;
-	touchReport.contact_count++;
 	return TOUCHSCREEN_SUCCESS;
 }
 
@@ -114,6 +110,15 @@ void touchscreen_clear(void)
 int touchscreen_send(void)
 {
 	touchReport.report_ID = REPORTID_TOUCH;
+	int count;
+	for (int i = 0; i < MAX_CONTACT_COUNT; i++)
+		{
+			if (contact_states[i] != CONTACT_RESET)
+			{
+				count++;
+			}
+		}
+	touchReport.contact_count = count;
 	int result = USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
 	for (int i = 0; i < MAX_CONTACT_COUNT; i++)
 	{
@@ -122,6 +127,7 @@ int touchscreen_send(void)
 			contact_states[i] = CONTACT_RESET;
 		}
 	}
+	HAL_Delay(DELAY_AFTER_SENDING);
 	if (result == USBD_OK)
 	{
 		return TOUCHSCREEN_SUCCESS;

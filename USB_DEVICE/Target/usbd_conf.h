@@ -37,7 +37,7 @@
 /* USER CODE BEGIN INCLUDE */
 
 #define CUSTOM_HID_EPIN_ADDR                         0x81U
-#define CUSTOM_HID_EPIN_SIZE                         2U		// IN endpoint size
+#define CUSTOM_HID_EPIN_SIZE                         14U		// IN endpoint size
 #define CUSTOM_HID_EPOUT_ADDR                        0x01U
 #define CUSTOM_HID_EPOUT_SIZE                        2U		// OUT endpoint size
 
@@ -82,7 +82,7 @@
 /*---------- -----------*/
 #define USBD_CUSTOMHID_OUTREPORT_BUF_SIZE     2U
 /*---------- -----------*/
-#define USBD_CUSTOM_HID_REPORT_DESC_SIZE     32U
+#define USBD_CUSTOM_HID_REPORT_DESC_SIZE     167U
 /*---------- -----------*/
 #define CUSTOM_HID_FS_BINTERVAL     0x5U
 

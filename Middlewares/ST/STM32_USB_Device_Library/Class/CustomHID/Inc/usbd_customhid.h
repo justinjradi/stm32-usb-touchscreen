@@ -45,7 +45,7 @@ extern "C" {
 #define REPORTID_MAX_COUNT														0x02
 #define REPORTID_CERTIFICATION												0x44
 
-#define MAX_CONTACT_COUNT															5
+#define MAX_CONTACT_COUNT															2				// Any changes must be reflected in report descriptor!
 
 #ifndef CUSTOM_HID_EPIN_ADDR
 #define CUSTOM_HID_EPIN_ADDR                         0x81U

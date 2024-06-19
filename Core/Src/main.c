@@ -107,8 +107,13 @@ int main(void)
   				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
   				user_button_pressed = 0;
 
+  				touchscreen_set_contact(0, 700, 700);
+  				touchscreen_set_contact(1, 1000, 700);
   				touchscreen_send();
-
+  				HAL_Delay(100);
+  				touchscreen_remove_contact(0);
+  				touchscreen_remove_contact(1);
+  				touchscreen_send();
   				HAL_Delay(250);
   			}
     /* USER CODE END WHILE */

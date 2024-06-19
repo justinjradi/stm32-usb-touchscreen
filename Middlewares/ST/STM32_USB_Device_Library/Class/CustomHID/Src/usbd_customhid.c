@@ -65,12 +65,12 @@ typedef struct
 {
 	uint8_t report_ID;
 	uint8_t max_contact_count;
-} MaxCountFeature;
+} MaxCountFeatureReport;
 
 typedef struct
 {
 	uint8_t report_ID;
-	uint8_t blob[256];
+	uint8_t* blob;
 } CertificationFeatureReport;
 
 /**
@@ -421,15 +421,15 @@ static uint8_t USBD_CUSTOM_HID_Setup(USBD_HandleTypeDef *pdev,
         	int FEATURE_REPORT_WVALUE_OFFSET = 0x300;		// High Byte of wValue is report type, Low Byte is report ID (HID 1.11, Section 7.2)
         	if (req->wValue == (FEATURE_REPORT_WVALUE_OFFSET + REPORTID_MAX_COUNT))
         	{
-        		MaxCountFeature maxCountFeature;
-        		maxCountFeature.report_ID = REPORTID_MAX_COUNT;
-        		maxCountFeature.max_contact_count = MAX_CONTACT_COUNT;
-        		USBD_CtlSendData(pdev, (uint8_t*)&maxCountFeature, sizeof (maxCountFeature));
+        		MaxCountFeatureReport maxCountFeatureReport;
+        		maxCountFeatureReport.report_ID = REPORTID_MAX_COUNT;
+        		maxCountFeatureReport.max_contact_count = MAX_CONTACT_COUNT;
+        		USBD_CtlSendData(pdev, (uint8_t*)&maxCountFeatureReport, sizeof (maxCountFeatureReport));
         	}
         	else if (req->wValue == (FEATURE_REPORT_WVALUE_OFFSET + REPORTID_CERTIFICATION))
 					{
-        		CertificationFeature certificationFeature;
-        		certificationFeature.report_ID = REPORTID_CERTIFICATION;
+        		CertificationFeatureReport certificationFeatureReport;
+        		certificationFeatureReport.report_ID = REPORTID_CERTIFICATION;
         		uint8_t blob[] = {
         				0xfc, 0x28, 0xfe, 0x84, 0x40, 0xcb, 0x9a, 0x87, 0x0d, 0xbe, 0x57, 0x3c, 0xb6, 0x70, 0x09, 0x88,
         				0x07, 0x97, 0x2d, 0x2b, 0xe3, 0x38, 0x34, 0xb6, 0x6c, 0xed, 0xb0, 0xf7, 0xe5, 0x9c, 0xf6, 0xc2,
@@ -448,7 +448,8 @@ static uint8_t USBD_CUSTOM_HID_Setup(USBD_HandleTypeDef *pdev,
         				0x1f, 0xfb, 0xda, 0xaf, 0xa2, 0xa8, 0x6a, 0x89, 0xd6, 0xbf, 0xf2, 0xd3, 0x32, 0x2a, 0x9a, 0xe4,
         				0xcf, 0x17, 0xb7, 0xb8, 0xf4, 0xe1, 0x33, 0x08, 0x24, 0x8b, 0xc4, 0x43, 0xa5, 0xe5, 0x24, 0xc2
         		};
-        		certificationFeature.blob = blob;
+        		certificationFeatureReport.blob = blob;
+        		USBD_CtlSendData(pdev, (uint8_t*)&certificationFeatureReport, sizeof (certificationFeatureReport));
 					}
         	break;
         default:

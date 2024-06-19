@@ -1,0 +1,5 @@
+../USB_DEVICE/App/usb_device.c:81:5:touchscreen_set_contact	2
+../USB_DEVICE/App/usb_device.c:94:5:touchscreen_remove_contact	2
+../USB_DEVICE/App/usb_device.c:105:6:touchscreen_clear	1
+../USB_DEVICE/App/usb_device.c:110:5:touchscreen_send	6
+../USB_DEVICE/App/usb_device.c:146:6:MX_USB_DEVICE_Init	5
