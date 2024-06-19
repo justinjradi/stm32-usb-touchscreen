@@ -51,7 +51,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+#define TOUCHSCREEN_FAILURE				0
+#define TOUCHSCREEN_SUCCESS				1
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
