@@ -51,6 +51,7 @@ typedef struct
 {
 	uint8_t report_ID;
 	Contact contacts[MAX_CONTACT_COUNT];
+	uint16_t scan_time;
 	uint8_t contact_count;
 } TouchReport;
 
@@ -107,7 +108,7 @@ void touchscreen_clear(void)
 
 }
 
-int touchscreen_send(void)
+int touchscreen_send(uint16_t scan_time)
 {
 	touchReport.report_ID = REPORTID_TOUCH;
 	int count;
@@ -119,6 +120,7 @@ int touchscreen_send(void)
 			}
 		}
 	touchReport.contact_count = count;
+	touchReport.scan_time = scan_time;
 	int result = USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
 	for (int i = 0; i < MAX_CONTACT_COUNT; i++)
 	{

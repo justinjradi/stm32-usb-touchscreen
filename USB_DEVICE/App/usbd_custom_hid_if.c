@@ -154,9 +154,18 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
 		    0x09, 0x31,                         //       USAGE (Y)
 		    0x81, 0x02,                         //       INPUT (Data,Var,Abs)
 		    0xc0,                               //     END_COLLECTION
-				// Contact Count
+				// Scan Time
 		    0x05, 0x0d,                         //   USAGE_PAGE (Digitizers)
-		    0x09, 0x54,                         //   USAGE (Contact count)
+				0x55, 0x0C,                         //     UNIT_EXPONENT (-4)
+				0x66, 0x01, 0x10,                   //     UNIT (Seconds)
+				0x47, 0xff, 0xff, 0x00, 0x00,       //       PHYSICAL_MAXIMUM (65535)
+				0x27, 0xff, 0xff, 0x00, 0x00,       //   LOGICAL_MAXIMUM (65535)
+				0x75, 0x10,                         //   REPORT_SIZE (16)
+				0x95, 0x01,                         //   REPORT_COUNT (1)
+				0x09, 0x56,                         //   USAGE (Scan Time)
+				0x81, 0x02,                         //   INPUT (Data,Var,Abs)
+		    // Contact Count
+				0x09, 0x54,                         //   USAGE (Contact count)
 		    0x25, 0x7f,                         //   LOGICAL_MAXIMUM (127)
 		    0x95, 0x01,                         //   REPORT_COUNT (1)
 		    0x75, 0x08,                         //   REPORT_SIZE (8)
