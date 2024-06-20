@@ -91,7 +91,6 @@ int main(void)
   int user_button_pressed = 0;
   touchscreen_init();
   /* USER CODE END 2 */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -114,7 +113,7 @@ int main(void)
 //  				touchscreen_remove_contact(0);
 //  				touchscreen_remove_contact(1);
 //  				touchscreen_send(0);
-  				touchscreen_test();
+  			  touchscreen_test();
   				HAL_Delay(250);
   			}
     /* USER CODE END WHILE */
