@@ -109,11 +109,11 @@ int main(void)
 
   				touchscreen_set_contact(0, 700, 700);
   				touchscreen_set_contact(1, 1000, 700);
-  				touchscreen_send();
+  				touchscreen_send(0);
   				HAL_Delay(100);
   				touchscreen_remove_contact(0);
   				touchscreen_remove_contact(1);
-  				touchscreen_send();
+  				touchscreen_send(100000);
   				HAL_Delay(250);
   			}
     /* USER CODE END WHILE */

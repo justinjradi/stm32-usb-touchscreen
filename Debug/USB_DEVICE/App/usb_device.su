@@ -1,5 +1,4 @@
-../USB_DEVICE/App/usb_device.c:81:5:touchscreen_set_contact	16	static
-../USB_DEVICE/App/usb_device.c:94:5:touchscreen_remove_contact	16	static
-../USB_DEVICE/App/usb_device.c:105:6:touchscreen_clear	4	static
-../USB_DEVICE/App/usb_device.c:110:5:touchscreen_send	24	static
-../USB_DEVICE/App/usb_device.c:146:6:MX_USB_DEVICE_Init	8	static
+../USB_DEVICE/App/usb_device.c:82:5:touchscreen_set_contact	16	static
+../USB_DEVICE/App/usb_device.c:95:5:touchscreen_remove_contact	16	static
+../USB_DEVICE/App/usb_device.c:106:5:touchscreen_send	32	static
+../USB_DEVICE/App/usb_device.c:143:6:MX_USB_DEVICE_Init	8	static

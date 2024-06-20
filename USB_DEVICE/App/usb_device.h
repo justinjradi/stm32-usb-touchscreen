@@ -59,7 +59,7 @@
 /* USER CODE BEGIN PFP */
 int touchscreen_set_contact(uint8_t ID, uint16_t x, uint16_t y);
 int touchscreen_remove_contact(uint8_t ID);
-int touchscreen_send(void);
+int touchscreen_send(uint16_t scan_time);
 /* USER CODE END PFP */
 
 /*

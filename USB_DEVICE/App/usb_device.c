@@ -103,11 +103,6 @@ int touchscreen_remove_contact(uint8_t ID)
 	return TOUCHSCREEN_SUCCESS;
 }
 
-void touchscreen_clear(void)
-{
-
-}
-
 int touchscreen_send(uint16_t scan_time)
 {
 	touchReport.report_ID = REPORTID_TOUCH;
