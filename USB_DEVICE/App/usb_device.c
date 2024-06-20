@@ -55,6 +55,8 @@ typedef struct
 	uint8_t contact_count;
 } TouchReport;
 
+Contact contact_1;
+Contact contact_2;
 TouchReport touchReport;
 int8_t contact_states[MAX_CONTACT_COUNT];
 /* USER CODE END PV */
@@ -78,6 +80,54 @@ USBD_HandleTypeDef hUsbDeviceFS;
  * -- Insert your external function declaration here --
  */
 /* USER CODE BEGIN 1 */
+
+void touchscreen_init(void)
+{
+	touchReport.report_ID = REPORTID_TOUCH;
+	Contact contacts[2] = {contact_1, contact_2};
+	contact_1.contact_ID = 0;
+	contact_2.contact_ID = 1;
+	memcpy(touchReport.contacts, contacts, sizeof(contacts));
+}
+
+void touchscreen_test(void)
+{
+	// Set
+
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[0].x = 700;
+	touchReport.contacts[0].y = 700;
+
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[0].x = 700;
+	touchReport.contacts[0].y = 1000;
+
+
+	touchReport.contact_count = 2;
+	touchReport.scan_time = 0;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	HAL_Delay(250);
+
+	// Remove
+
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_RESET;
+	touchReport.contacts[1].tip_switch = TIP_SWITCH_RESET;
+
+	touchReport.contact_count = 2;
+	touchReport.scan_time = 0;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	HAL_Delay(250);
+
+	// Reset
+
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_RESET;
+	touchReport.contacts[1].tip_switch = TIP_SWITCH_RESET;
+
+	touchReport.contact_count = 0;
+	touchReport.scan_time = 0;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	HAL_Delay(250);
+}
 
 int touchscreen_set_contact(uint8_t ID, uint16_t x, uint16_t y)
 {
@@ -109,6 +159,7 @@ int touchscreen_send(uint16_t scan_time)
 	int count;
 	for (int i = 0; i < MAX_CONTACT_COUNT; i++)
 		{
+			touchReport.contacts[i].contact_ID = i;
 			if (contact_states[i] != CONTACT_RESET)
 			{
 				count++;
