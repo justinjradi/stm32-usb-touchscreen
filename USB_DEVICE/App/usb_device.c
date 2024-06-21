@@ -33,7 +33,7 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 int TIP_SWITCH_RESET = 0b00000000;
-int TIP_SWITCH_SET = 0b10000000;
+int TIP_SWITCH_SET = 0b00000001;
 int CONTACT_RESET = 0;
 int CONTACT_REMOVED = -1;
 int CONTACT_SET = 1;
@@ -96,17 +96,81 @@ void touchscreen_test(void)
 
 	touchReport.contacts[0].tip_switch = TIP_SWITCH_SET;
 	touchReport.contacts[0].x = 700;
-	touchReport.contacts[0].y = 700;
+	touchReport.contacts[0].y = 600;
 
 	touchReport.contacts[1].tip_switch = TIP_SWITCH_SET;
 	touchReport.contacts[1].x = 700;
-	touchReport.contacts[1].y = 1000;
+	touchReport.contacts[1].y = 700;
 
 
 	touchReport.contact_count = 2;
 	touchReport.scan_time = 0;
 	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
-	HAL_Delay(500);
+	HAL_Delay(250);
+
+	// Set
+
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[0].x = 750;
+	touchReport.contacts[0].y = 600;
+
+	touchReport.contacts[1].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[1].x = 750;
+	touchReport.contacts[1].y = 700;
+
+
+	touchReport.contact_count = 2;
+	touchReport.scan_time = 2500;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	HAL_Delay(250);
+
+	// Set
+
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[0].x = 800;
+	touchReport.contacts[0].y = 600;
+
+	touchReport.contacts[1].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[1].x = 800;
+	touchReport.contacts[1].y = 700;
+
+
+	touchReport.contact_count = 2;
+	touchReport.scan_time = 5000;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	HAL_Delay(250);
+
+	// Set
+
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[0].x = 800;
+	touchReport.contacts[0].y = 600;
+
+	touchReport.contacts[1].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[1].x = 800;
+	touchReport.contacts[1].y = 700;
+
+
+	touchReport.contact_count = 2;
+	touchReport.scan_time = 7500;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	HAL_Delay(250);
+
+	// Set
+
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[0].x = 850;
+	touchReport.contacts[0].y = 600;
+
+	touchReport.contacts[1].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[1].x = 850;
+	touchReport.contacts[1].y = 700;
+
+
+	touchReport.contact_count = 2;
+	touchReport.scan_time = 10000;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	HAL_Delay(250);
 
 	// Remove
 
@@ -114,9 +178,9 @@ void touchscreen_test(void)
 	touchReport.contacts[1].tip_switch = TIP_SWITCH_RESET;
 
 	touchReport.contact_count = 2;
-	touchReport.scan_time = 5000;
+	touchReport.scan_time = 12500;
 	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
-	HAL_Delay(500);
+	HAL_Delay(250);
 
 	// Reset
 
@@ -124,9 +188,33 @@ void touchscreen_test(void)
 	touchReport.contacts[1].tip_switch = TIP_SWITCH_RESET;
 
 	touchReport.contact_count = 0;
-	touchReport.scan_time = 10000;
+	touchReport.scan_time = 15000;
 	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
-	HAL_Delay(500);
+	HAL_Delay(250);
+}
+
+void touchscreen_press(uint16_t scan_time)
+{
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_SET;
+	touchReport.contacts[0].x = 700;
+	touchReport.contacts[0].y = 600;
+	touchReport.contact_count = 1;
+	touchReport.scan_time = scan_time;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+}
+
+void touchscreen_unpress(uint16_t scan_time)
+{
+	touchReport.contacts[0].tip_switch = TIP_SWITCH_RESET;
+	touchReport.scan_time = scan_time;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+}
+
+void touchscreen_reset(uint16_t scan_time)
+{
+	touchReport.contact_count = 0;
+	touchReport.scan_time = scan_time;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
 }
 
 int touchscreen_set_contact(uint8_t ID, uint16_t x, uint16_t y)

@@ -90,32 +90,48 @@ int main(void)
   /* USER CODE BEGIN 2 */
   int user_button_pressed = 0;
   touchscreen_init();
+  uint16_t scan_time = 0;
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-  			if (HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin))
-  			{
-  				user_button_pressed = 1;
-  			}
-  			else if (user_button_pressed)
-  			{
-  				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
-  				HAL_Delay(250);
-  				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
-  				user_button_pressed = 0;
+//  			if (HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin))
+//  			{
+//  				user_button_pressed = 1;
+//  			}
+//  			else if (user_button_pressed)
+//  			{
+//  				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
+//  				HAL_Delay(250);
+//  				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
+//  				user_button_pressed = 0;
+//  				HAL_Delay(250);
+//  			}
 
-//  				touchscreen_set_contact(0, 700, 700);
-//  				touchscreen_set_contact(1, 1000, 700);
-//  				touchscreen_send(0);
-//  				HAL_Delay(100);
-//  				touchscreen_remove_contact(0);
-//  				touchscreen_remove_contact(1);
-//  				touchscreen_send(0);
-  			  touchscreen_test();
-  				HAL_Delay(250);
-  			}
+  	if (HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin))
+  	{
+  		user_button_pressed = 1;
+  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
+  		scan_time = (uint16_t)(HAL_GetTick() * 10);
+  		touchscreen_press(scan_time);
+  		HAL_Delay(100);
+  	}
+  	else if (user_button_pressed)			// Remove contact
+  	{
+  		user_button_pressed = 0;
+  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
+  		scan_time = (uint16_t)(HAL_GetTick() * 10);
+  		touchscreen_unpress(scan_time);
+  		HAL_Delay(100);
+  	} else		// Send reset state
+  	{
+  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
+			scan_time = (uint16_t)(HAL_GetTick() * 10);
+			touchscreen_reset(scan_time);
+			HAL_Delay(100);
+  	}
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
