@@ -39,7 +39,10 @@ typedef struct __attribute__((packed))
 	uint8_t contact_ID;
 	uint16_t x;
 	uint16_t y;
-} Contact;
+	uint16_t width;
+	uint16_t height;
+	uint16_t azimuth;
+} Contact;	// contact size = 12 bytes
 
 typedef struct __attribute__((packed))
 {
@@ -47,7 +50,7 @@ typedef struct __attribute__((packed))
 	Contact contacts[TOUCHSCREEN_MAX_CONTACTS];
 	uint16_t scan_time;
 	uint8_t contact_count;
-} TouchReport;
+} TouchReport;	// touch report size = 4 + (contact size * TOUCHSCREEN_MAX_CONTACTS)
 
 Contact contact_0;
 Contact contact_1;
@@ -75,21 +78,33 @@ USBD_HandleTypeDef hUsbDeviceFS;
  */
 /* USER CODE BEGIN 1 */
 
+void touchscreen_test(void)
+{
+	uint8_t buffer[28] = {0};
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &buffer, sizeof (buffer));
+}
+
 void touchscreen_init(void)
 {
 	touchReport.report_ID = REPORTID_TOUCH;
 	Contact contacts[2] = {contact_0, contact_1};
 	memcpy(touchReport.contacts, contacts, sizeof(contacts));
 	touchReport.contacts[0].contact_ID = 0;
+	touchReport.contacts[0].width = 0;
+	touchReport.contacts[0].height = 0;
+	touchReport.contacts[0].azimuth = 0;
 	touchReport.contacts[1].contact_ID = 1;
+	touchReport.contacts[1].width = 0;
+	touchReport.contacts[1].height = 0;
+	touchReport.contacts[1].azimuth = 0;
 }
 
 int touchscreen_set(uint8_t ID, uint16_t x, uint16_t y)
 {
-	if ((ID >= TOUCHSCREEN_MAX_CONTACTS) || (x > TOUCHSCREEN_WIDTH) || (y > TOUCHSCREEN_HEIGHT))
-	{
-		return TOUCHSCREEN_FAILURE;
-	}
+//	if ((ID >= TOUCHSCREEN_MAX_CONTACTS) || (x > TOUCHSCREEN_WIDTH) || (y > TOUCHSCREEN_HEIGHT))
+//	{
+//		return TOUCHSCREEN_FAILURE;
+//	}
 	touchReport.contacts[ID].tip_switch = 1;
 	contacts_counted[ID] = 1;
 	touchReport.contacts[ID].x = x;
@@ -107,7 +122,7 @@ int touchscreen_reset(uint8_t ID)
 	return TOUCHSCREEN_SUCCESS;
 }
 
-void touchscreen_update(uint16_t scan_time)
+int touchscreen_update(uint16_t scan_time)
 {
 	int contact_count = 0;
 	for (int ID = 0; ID < TOUCHSCREEN_MAX_CONTACTS; ID++)
@@ -123,7 +138,12 @@ void touchscreen_update(uint16_t scan_time)
 	}
 	touchReport.contact_count = contact_count;
 	touchReport.scan_time = scan_time;
-	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	int result = USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+	if (result == USBD_OK)
+	{
+		return TOUCHSCREEN_SUCCESS;
+	}
+	return TOUCHSCREEN_FAILURE;
 }
 
 /* USER CODE END 1 */

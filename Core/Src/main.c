@@ -126,14 +126,16 @@ int main(void)
 //				touchscreen_reset(0);
 //				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
 
-				touchscreen_set(0, 600, 600);
-				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
-				HAL_Delay(500);
-				touchscreen_reset(0);
-				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
-				touchscreen_reset(0);
-				HAL_Delay(100);
-				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+//				int a = touchscreen_set(0, 600, 600);
+//				int b = touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+//				HAL_Delay(500);
+//				touchscreen_reset(0);
+//				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+//				touchscreen_reset(0);
+//				HAL_Delay(100);
+//				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+				touchscreen_test();
+
 				HAL_Delay(250);
 			}
 
