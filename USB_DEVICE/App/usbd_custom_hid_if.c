@@ -179,8 +179,6 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
 		    0x95, 0x01,                         //   REPORT_COUNT (1)
 		    0x25, TOUCHSCREEN_MAX_CONTACTS,     //   LOGICAL_MAXIMUM (TOUCHSCREEN_MAX_CONTACTS)
 		    0xb1, 0x02,                         //   FEATURE (Data,Var,Abs)
-				0x95, 0xff,  		                		//   REPORT_COUNT (255)
-		    0xb1, 0x01,                         //   FEATURE (Cnst,Ary,Abs)
 				// Certification Feature Report
 		    0x85, REPORTID_CERTIFICATION,       //   REPORT_ID (Feature)
 		    0x06, 0x00, 0xff,                   //   USAGE_PAGE (Vendor Defined)
