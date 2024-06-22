@@ -90,47 +90,75 @@ int main(void)
   /* USER CODE BEGIN 2 */
   int user_button_pressed = 0;
   touchscreen_init();
-  uint16_t scan_time = 0;
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//  			if (HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin))
-//  			{
-//  				user_button_pressed = 1;
-//  			}
-//  			else if (user_button_pressed)
-//  			{
-//  				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
-//  				HAL_Delay(250);
-//  				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
-//  				user_button_pressed = 0;
-//  				HAL_Delay(250);
-//  			}
+			if (HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin))
+			{
+				user_button_pressed = 1;
+			}
+			else if (user_button_pressed)
+			{
+				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
+				HAL_Delay(250);
+				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
+				user_button_pressed = 0;
 
-  	if (HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin))
-  	{
-  		user_button_pressed = 1;
-  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
-  		scan_time = (uint16_t)(HAL_GetTick() * 10);
-  		touchscreen_press(scan_time);
-  		HAL_Delay(100);
-  	}
-  	else if (user_button_pressed)			// Remove contact
-  	{
-  		user_button_pressed = 0;
-  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
-  		scan_time = (uint16_t)(HAL_GetTick() * 10);
-  		touchscreen_unpress(scan_time);
-  		HAL_Delay(100);
-  	} else		// Send reset state
-  	{
-  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
-			scan_time = (uint16_t)(HAL_GetTick() * 10);
-			touchscreen_reset(scan_time);
-			HAL_Delay(100);
-  	}
+//				int x_0_0 = 600;
+//				int y_0_0 = 500;
+//				int x_1_0 = 600;
+//				int y_1_0 = 600;
+//				int dx = 10;
+//
+//				for (int i = 0; i < 1; i++)
+//				{
+//					touchscreen_set(0, x_0_0 + dx*i, y_0_0);
+////					touchscreen_set(1, x_1_0 + dx*i, y_1_0);
+//					HAL_Delay(50);
+//					touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+//				}
+//				HAL_Delay(50);
+//				touchscreen_reset(0);
+//				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+//				HAL_Delay(50);
+//				touchscreen_reset(0);
+//				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+
+				touchscreen_set(1, 600, 600);
+				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+				HAL_Delay(500);
+				touchscreen_reset(1);
+				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+				touchscreen_reset(1);
+				HAL_Delay(100);
+				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
+				HAL_Delay(250);
+			}
+
+//  	if (HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin))
+//  	{
+//  		user_button_pressed = 1;
+//  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
+//  		scan_time = (uint16_t)(HAL_GetTick() * 10);
+//  		touchscreen_press(scan_time);
+//  		HAL_Delay(100);
+//  	}
+//  	else if (user_button_pressed)			// Remove contact
+//  	{
+//  		user_button_pressed = 0;
+//  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
+//  		scan_time = (uint16_t)(HAL_GetTick() * 10);
+//  		touchscreen_unpress(scan_time);
+//  		HAL_Delay(100);
+//  	} else		// Send reset state
+//  	{
+//  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
+//			scan_time = (uint16_t)(HAL_GetTick() * 10);
+//			touchscreen_reset(scan_time);
+//			HAL_Delay(100);
+//  	}
 
     /* USER CODE END WHILE */
 

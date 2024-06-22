@@ -1,9 +1,5 @@
-../USB_DEVICE/App/usb_device.c:84:6:touchscreen_init	1
-../USB_DEVICE/App/usb_device.c:93:6:touchscreen_test	1
-../USB_DEVICE/App/usb_device.c:196:6:touchscreen_press	1
-../USB_DEVICE/App/usb_device.c:206:6:touchscreen_unpress	1
-../USB_DEVICE/App/usb_device.c:213:6:touchscreen_reset	1
-../USB_DEVICE/App/usb_device.c:220:5:touchscreen_set_contact	2
-../USB_DEVICE/App/usb_device.c:233:5:touchscreen_remove_contact	2
-../USB_DEVICE/App/usb_device.c:244:5:touchscreen_send	6
-../USB_DEVICE/App/usb_device.c:282:6:MX_USB_DEVICE_Init	5
+../USB_DEVICE/App/usb_device.c:78:6:touchscreen_init	1
+../USB_DEVICE/App/usb_device.c:87:5:touchscreen_set	4
+../USB_DEVICE/App/usb_device.c:100:5:touchscreen_reset	2
+../USB_DEVICE/App/usb_device.c:110:6:touchscreen_update	4
+../USB_DEVICE/App/usb_device.c:135:6:MX_USB_DEVICE_Init	5
