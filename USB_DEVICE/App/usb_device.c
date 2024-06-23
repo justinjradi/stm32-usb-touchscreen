@@ -37,12 +37,14 @@ typedef struct __attribute__((packed))
 {
 	uint8_t tip_switch;
 	uint8_t contact_ID;
-	uint16_t x;
-	uint16_t y;
+	uint16_t x_t;
+	uint16_t x_c;
+	uint16_t y_t;
+	uint16_t y_c;
 	uint16_t width;
 	uint16_t height;
 	uint16_t azimuth;
-} Contact;	// contact size = 12 bytes
+} Contact;	// contact size = 16 bytes
 
 typedef struct __attribute__((packed))
 {
@@ -52,8 +54,6 @@ typedef struct __attribute__((packed))
 	uint8_t contact_count;
 } TouchReport;	// touch report size = 4 + (contact size * TOUCHSCREEN_MAX_CONTACTS)
 
-Contact contact_0;
-Contact contact_1;
 TouchReport touchReport;
 uint8_t contacts_counted[TOUCHSCREEN_MAX_CONTACTS];
 /* USER CODE END PV */
@@ -78,25 +78,17 @@ USBD_HandleTypeDef hUsbDeviceFS;
  */
 /* USER CODE BEGIN 1 */
 
-void touchscreen_test(void)
-{
-	uint8_t buffer[28] = {0};
-	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &buffer, sizeof (buffer));
-}
-
 void touchscreen_init(void)
 {
 	touchReport.report_ID = REPORTID_TOUCH;
+	Contact contact_0 = {0};
+	Contact contact_1 = {0};
 	Contact contacts[2] = {contact_0, contact_1};
 	memcpy(touchReport.contacts, contacts, sizeof(contacts));
-	touchReport.contacts[0].contact_ID = 0;
-	touchReport.contacts[0].width = 0;
-	touchReport.contacts[0].height = 0;
-	touchReport.contacts[0].azimuth = 0;
-	touchReport.contacts[1].contact_ID = 1;
-	touchReport.contacts[1].width = 0;
-	touchReport.contacts[1].height = 0;
-	touchReport.contacts[1].azimuth = 0;
+	for (int i = 0; i < TOUCHSCREEN_MAX_CONTACTS; i ++)
+	{
+		touchReport.contacts[i].contact_ID = i;
+	}
 }
 
 int touchscreen_set(uint8_t ID, uint16_t x, uint16_t y)
@@ -107,8 +99,10 @@ int touchscreen_set(uint8_t ID, uint16_t x, uint16_t y)
 //	}
 	touchReport.contacts[ID].tip_switch = 1;
 	contacts_counted[ID] = 1;
-	touchReport.contacts[ID].x = x;
-	touchReport.contacts[ID].y = y;
+	touchReport.contacts[ID].x_t = x;
+	touchReport.contacts[ID].x_c = x;
+	touchReport.contacts[ID].y_t = y;
+	touchReport.contacts[ID].y_c = y;
 	return TOUCHSCREEN_SUCCESS;
 }
 
