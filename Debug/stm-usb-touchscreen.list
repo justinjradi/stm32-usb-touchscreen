@@ -9,43 +9,43 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   2 .rodata       00000070  08007708  08007708  00008708  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08007778  08007778  00009400  2**0
+  3 .ARM.extab    00000000  08007778  08007778  000092e8  2**0
                   CONTENTS
   4 .ARM          00000008  08007778  08007778  00008778  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08007780  08007780  00009400  2**0
+  5 .preinit_array 00000000  08007780  08007780  000092e8  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   6 .init_array   00000004  08007780  08007780  00008780  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   7 .fini_array   00000004  08007784  08007784  00008784  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         00000400  20000000  08007788  00009000  2**2
+  8 .data         000002e8  20000000  08007788  00009000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000a28  20000400  08007b88  00009400  2**2
+  9 .bss          00000a20  200002e8  08007a70  000092e8  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20000e28  08007b88  00009e28  2**0
+ 10 ._user_heap_stack 00000600  20000d08  08007a70  00009d08  2**0
                   ALLOC
- 11 .ARM.attributes 00000030  00000000  00000000  00009400  2**0
+ 11 .ARM.attributes 00000030  00000000  00000000  000092e8  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000def6  00000000  00000000  00009430  2**0
+ 12 .debug_info   0000dee0  00000000  00000000  00009318  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00002bd1  00000000  00000000  00017326  2**0
+ 13 .debug_abbrev 00002bd1  00000000  00000000  000171f8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000bd0  00000000  00000000  00019ef8  2**3
+ 14 .debug_aranges 00000bd0  00000000  00000000  00019dd0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 000008b9  00000000  00000000  0001aac8  2**0
+ 15 .debug_rnglists 000008b9  00000000  00000000  0001a9a0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00023552  00000000  00000000  0001b381  2**0
+ 16 .debug_macro  00023552  00000000  00000000  0001b259  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00010a89  00000000  00000000  0003e8d3  2**0
+ 17 .debug_line   00010a7d  00000000  00000000  0003e7ab  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000c9ca7  00000000  00000000  0004f35c  2**0
+ 18 .debug_str    000c9ca7  00000000  00000000  0004f228  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00119003  2**0
+ 19 .comment      00000043  00000000  00000000  00118ecf  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002ef0  00000000  00000000  00119048  2**2
+ 20 .debug_frame  00002ef0  00000000  00000000  00118f14  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000069  00000000  00000000  0011bf38  2**0
+ 21 .debug_line_str 00000069  00000000  00000000  0011be04  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -62,7 +62,7 @@ Disassembly of section .text:
  80001d6:	2301      	movs	r3, #1
  80001d8:	7023      	strb	r3, [r4, #0]
  80001da:	bd10      	pop	{r4, pc}
- 80001dc:	20000400 	.word	0x20000400
+ 80001dc:	200002e8 	.word	0x200002e8
  80001e0:	00000000 	.word	0x00000000
  80001e4:	080076f0 	.word	0x080076f0
 
@@ -75,7 +75,7 @@ Disassembly of section .text:
  80001f2:	f3af 8000 	nop.w
  80001f6:	bd08      	pop	{r3, pc}
  80001f8:	00000000 	.word	0x00000000
- 80001fc:	20000404 	.word	0x20000404
+ 80001fc:	200002ec 	.word	0x200002ec
  8000200:	080076f0 	.word	0x080076f0
 
 08000204 <__aeabi_uldivmod>:
@@ -427,10 +427,10 @@ int main(void)
 //				touchscreen_reset(0);
 //				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
 
-				int a = touchscreen_set(0, 600, 600);
- 800054c:	f44f 7216 	mov.w	r2, #600	@ 0x258
- 8000550:	f44f 7116 	mov.w	r1, #600	@ 0x258
- 8000554:	2000      	movs	r0, #0
+				int a = touchscreen_set(1, 2047, 2047);
+ 800054c:	f240 72ff 	movw	r2, #2047	@ 0x7ff
+ 8000550:	f240 71ff 	movw	r1, #2047	@ 0x7ff
+ 8000554:	2001      	movs	r0, #1
  8000556:	f006 fb23 	bl	8006ba0 <touchscreen_set>
  800055a:	60b8      	str	r0, [r7, #8]
 				int b = touchscreen_update((uint16_t)(HAL_GetTick() * 10));
@@ -443,14 +443,14 @@ int main(void)
  800056a:	005b      	lsls	r3, r3, #1
  800056c:	b29b      	uxth	r3, r3
  800056e:	4618      	mov	r0, r3
- 8000570:	f006 fb6c 	bl	8006c4c <touchscreen_update>
+ 8000570:	f006 fb6a 	bl	8006c48 <touchscreen_update>
  8000574:	6078      	str	r0, [r7, #4]
 				HAL_Delay(500);
  8000576:	f44f 70fa 	mov.w	r0, #500	@ 0x1f4
  800057a:	f000 fa19 	bl	80009b0 <HAL_Delay>
-				touchscreen_reset(0);
- 800057e:	2000      	movs	r0, #0
- 8000580:	f006 fb4a 	bl	8006c18 <touchscreen_reset>
+				touchscreen_reset(1);
+ 800057e:	2001      	movs	r0, #1
+ 8000580:	f006 fb44 	bl	8006c0c <touchscreen_reset>
 				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
  8000584:	f000 fa08 	bl	8000998 <HAL_GetTick>
  8000588:	4603      	mov	r3, r0
@@ -461,10 +461,10 @@ int main(void)
  8000592:	005b      	lsls	r3, r3, #1
  8000594:	b29b      	uxth	r3, r3
  8000596:	4618      	mov	r0, r3
- 8000598:	f006 fb58 	bl	8006c4c <touchscreen_update>
-				touchscreen_reset(0);
- 800059c:	2000      	movs	r0, #0
- 800059e:	f006 fb3b 	bl	8006c18 <touchscreen_reset>
+ 8000598:	f006 fb56 	bl	8006c48 <touchscreen_update>
+				touchscreen_reset(1);
+ 800059c:	2001      	movs	r0, #1
+ 800059e:	f006 fb35 	bl	8006c0c <touchscreen_reset>
 				HAL_Delay(100);
  80005a2:	2064      	movs	r0, #100	@ 0x64
  80005a4:	f000 fa04 	bl	80009b0 <HAL_Delay>
@@ -478,7 +478,7 @@ int main(void)
  80005b6:	005b      	lsls	r3, r3, #1
  80005b8:	b29b      	uxth	r3, r3
  80005ba:	4618      	mov	r0, r3
- 80005bc:	f006 fb46 	bl	8006c4c <touchscreen_update>
+ 80005bc:	f006 fb44 	bl	8006c48 <touchscreen_update>
 
 				HAL_Delay(250);
  80005c0:	20fa      	movs	r0, #250	@ 0xfa
@@ -1017,7 +1017,7 @@ void OTG_FS_IRQHandler(void)
  800084a:	bf00      	nop
  800084c:	bd80      	pop	{r7, pc}
  800084e:	bf00      	nop
- 8000850:	20000928 	.word	0x20000928
+ 8000850:	20000808 	.word	0x20000808
 
 08000854 <SystemInit>:
   *         configuration.
@@ -1133,13 +1133,13 @@ LoopFillZerobss:
   ldr r0, =_sdata
  80008b4:	20000000 	.word	0x20000000
   ldr r1, =_edata
- 80008b8:	20000400 	.word	0x20000400
+ 80008b8:	200002e8 	.word	0x200002e8
   ldr r2, =_sidata
  80008bc:	08007788 	.word	0x08007788
   ldr r2, =_sbss
- 80008c0:	20000400 	.word	0x20000400
+ 80008c0:	200002e8 	.word	0x200002e8
   ldr r4, =_ebss
- 80008c4:	20000e28 	.word	0x20000e28
+ 80008c4:	20000d08 	.word	0x20000d08
 
 080008c8 <ADC_IRQHandler>:
  * @retval None       
@@ -1302,7 +1302,7 @@ __weak void HAL_IncTick(void)
  800098c:	4770      	bx	lr
  800098e:	bf00      	nop
  8000990:	20000008 	.word	0x20000008
- 8000994:	2000041c 	.word	0x2000041c
+ 8000994:	20000304 	.word	0x20000304
 
 08000998 <HAL_GetTick>:
   * @note This function is declared as __weak to be overwritten in case of other 
@@ -1322,7 +1322,7 @@ __weak uint32_t HAL_GetTick(void)
  80009a4:	f85d 7b04 	ldr.w	r7, [sp], #4
  80009a8:	4770      	bx	lr
  80009aa:	bf00      	nop
- 80009ac:	2000041c 	.word	0x2000041c
+ 80009ac:	20000304 	.word	0x20000304
 
 080009b0 <HAL_Delay>:
   *       implementations in user file.
@@ -12376,7 +12376,7 @@ static uint8_t USBD_CUSTOM_HID_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   (void)USBD_LL_OpenEP(pdev, CUSTOMHIDInEpAdd, USBD_EP_TYPE_INTR,
  8004dc4:	4b20      	ldr	r3, [pc, #128]	@ (8004e48 <USBD_CUSTOM_HID_Init+0x14c>)
  8004dc6:	7819      	ldrb	r1, [r3, #0]
- 8004dc8:	2324      	movs	r3, #36	@ 0x24
+ 8004dc8:	231c      	movs	r3, #28
  8004dca:	2203      	movs	r2, #3
  8004dcc:	6878      	ldr	r0, [r7, #4]
  8004dce:	f002 fac0 	bl	8007352 <USBD_LL_OpenEP>
@@ -12455,8 +12455,8 @@ static uint8_t USBD_CUSTOM_HID_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
  8004e42:	3710      	adds	r7, #16
  8004e44:	46bd      	mov	sp, r7
  8004e46:	bd80      	pop	{r7, pc}
- 8004e48:	2000028e 	.word	0x2000028e
- 8004e4c:	2000028f 	.word	0x2000028f
+ 8004e48:	2000018e 	.word	0x2000018e
+ 8004e4c:	2000018f 	.word	0x2000018f
 
 08004e50 <USBD_CUSTOM_HID_DeInit>:
   * @param  pdev: device instance
@@ -12591,8 +12591,8 @@ static uint8_t USBD_CUSTOM_HID_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
  8004f36:	3708      	adds	r7, #8
  8004f38:	46bd      	mov	sp, r7
  8004f3a:	bd80      	pop	{r7, pc}
- 8004f3c:	2000028e 	.word	0x2000028e
- 8004f40:	2000028f 	.word	0x2000028f
+ 8004f3c:	2000018e 	.word	0x2000018e
+ 8004f40:	2000018f 	.word	0x2000018f
 
 08004f44 <USBD_CUSTOM_HID_Setup>:
   * @param  req: usb requests
@@ -12757,7 +12757,7 @@ static uint8_t USBD_CUSTOM_HID_Setup(USBD_HandleTypeDef *pdev,
  8005036:	429a      	cmp	r2, r3
  8005038:	d105      	bne.n	8005046 <USBD_CUSTOM_HID_Setup+0x102>
         	{
-        		USBD_CtlSendData(pdev, (uint8_t*)&maxCountFeatureReport, 2);
+        		USBD_CtlSendData(pdev, /*(uint8_t*)&*/maxCountFeatureReport, 2);
  800503a:	2202      	movs	r2, #2
  800503c:	495d      	ldr	r1, [pc, #372]	@ (80051b4 <USBD_CUSTOM_HID_Setup+0x270>)
  800503e:	6878      	ldr	r0, [r7, #4]
@@ -12864,9 +12864,9 @@ static uint8_t USBD_CUSTOM_HID_Setup(USBD_HandleTypeDef *pdev,
             len = MIN(USBD_CUSTOM_HID_REPORT_DESC_SIZE, req->wLength);
  80050ea:	683b      	ldr	r3, [r7, #0]
  80050ec:	88db      	ldrh	r3, [r3, #6]
- 80050ee:	2bfd      	cmp	r3, #253	@ 0xfd
+ 80050ee:	2be6      	cmp	r3, #230	@ 0xe6
  80050f0:	bf28      	it	cs
- 80050f2:	23fd      	movcs	r3, #253	@ 0xfd
+ 80050f2:	23e6      	movcs	r3, #230	@ 0xe6
  80050f4:	83fb      	strh	r3, [r7, #30]
             pbuf = ((USBD_CUSTOM_HID_ItfTypeDef *)pdev->pUserData[pdev->classId])->pReport;
  80050f6:	687b      	ldr	r3, [r7, #4]
@@ -13015,8 +13015,8 @@ static uint8_t USBD_CUSTOM_HID_Setup(USBD_HandleTypeDef *pdev,
  80051b0:	bd80      	pop	{r7, pc}
  80051b2:	bf00      	nop
  80051b4:	2000000c 	.word	0x2000000c
- 80051b8:	20000110 	.word	0x20000110
- 80051bc:	20000278 	.word	0x20000278
+ 80051b8:	20000010 	.word	0x20000010
+ 80051bc:	20000178 	.word	0x20000178
 
 080051c0 <USBD_CUSTOM_HID_SendReport>:
 {
@@ -13094,7 +13094,7 @@ uint8_t USBD_CUSTOM_HID_SendReport(USBD_HandleTypeDef *pdev,
  800521a:	3718      	adds	r7, #24
  800521c:	46bd      	mov	sp, r7
  800521e:	bd80      	pop	{r7, pc}
- 8005220:	2000028e 	.word	0x2000028e
+ 8005220:	2000018e 	.word	0x2000018e
 
 08005224 <USBD_CUSTOM_HID_GetFSCfgDesc>:
   * @param  speed : current device speed
@@ -13126,7 +13126,7 @@ static uint8_t *USBD_CUSTOM_HID_GetFSCfgDesc(uint16_t *length)
     pEpInDesc->wMaxPacketSize = CUSTOM_HID_EPIN_SIZE;
  8005246:	68fb      	ldr	r3, [r7, #12]
  8005248:	2200      	movs	r2, #0
- 800524a:	f042 0224 	orr.w	r2, r2, #36	@ 0x24
+ 800524a:	f042 021c 	orr.w	r2, r2, #28
  800524e:	711a      	strb	r2, [r3, #4]
  8005250:	2200      	movs	r2, #0
  8005252:	715a      	strb	r2, [r3, #5]
@@ -13165,7 +13165,7 @@ static uint8_t *USBD_CUSTOM_HID_GetFSCfgDesc(uint16_t *length)
  800527e:	3710      	adds	r7, #16
  8005280:	46bd      	mov	sp, r7
  8005282:	bd80      	pop	{r7, pc}
- 8005284:	2000024c 	.word	0x2000024c
+ 8005284:	2000014c 	.word	0x2000014c
 
 08005288 <USBD_CUSTOM_HID_GetHSCfgDesc>:
   * @param  speed : current device speed
@@ -13197,7 +13197,7 @@ static uint8_t *USBD_CUSTOM_HID_GetHSCfgDesc(uint16_t *length)
     pEpInDesc->wMaxPacketSize = CUSTOM_HID_EPIN_SIZE;
  80052aa:	68fb      	ldr	r3, [r7, #12]
  80052ac:	2200      	movs	r2, #0
- 80052ae:	f042 0224 	orr.w	r2, r2, #36	@ 0x24
+ 80052ae:	f042 021c 	orr.w	r2, r2, #28
  80052b2:	711a      	strb	r2, [r3, #4]
  80052b4:	2200      	movs	r2, #0
  80052b6:	715a      	strb	r2, [r3, #5]
@@ -13236,7 +13236,7 @@ static uint8_t *USBD_CUSTOM_HID_GetHSCfgDesc(uint16_t *length)
  80052e2:	3710      	adds	r7, #16
  80052e4:	46bd      	mov	sp, r7
  80052e6:	bd80      	pop	{r7, pc}
- 80052e8:	2000024c 	.word	0x2000024c
+ 80052e8:	2000014c 	.word	0x2000014c
 
 080052ec <USBD_CUSTOM_HID_GetOtherSpeedCfgDesc>:
   * @param  speed : current device speed
@@ -13268,7 +13268,7 @@ static uint8_t *USBD_CUSTOM_HID_GetOtherSpeedCfgDesc(uint16_t *length)
     pEpInDesc->wMaxPacketSize = CUSTOM_HID_EPIN_SIZE;
  800530e:	68fb      	ldr	r3, [r7, #12]
  8005310:	2200      	movs	r2, #0
- 8005312:	f042 0224 	orr.w	r2, r2, #36	@ 0x24
+ 8005312:	f042 021c 	orr.w	r2, r2, #28
  8005316:	711a      	strb	r2, [r3, #4]
  8005318:	2200      	movs	r2, #0
  800531a:	715a      	strb	r2, [r3, #5]
@@ -13307,7 +13307,7 @@ static uint8_t *USBD_CUSTOM_HID_GetOtherSpeedCfgDesc(uint16_t *length)
  8005346:	3710      	adds	r7, #16
  8005348:	46bd      	mov	sp, r7
  800534a:	bd80      	pop	{r7, pc}
- 800534c:	2000024c 	.word	0x2000024c
+ 800534c:	2000014c 	.word	0x2000014c
 
 08005350 <USBD_CUSTOM_HID_DataIn>:
   * @param  pdev: device instance
@@ -13466,7 +13466,7 @@ uint8_t USBD_CUSTOM_HID_ReceivePacket(USBD_HandleTypeDef *pdev)
  800541a:	46bd      	mov	sp, r7
  800541c:	bd80      	pop	{r7, pc}
  800541e:	bf00      	nop
- 8005420:	2000028f 	.word	0x2000028f
+ 8005420:	2000018f 	.word	0x2000018f
 
 08005424 <USBD_CUSTOM_HID_EP0_RxReady>:
   *         Handles control request data.
@@ -13557,7 +13557,7 @@ static uint8_t *USBD_CUSTOM_HID_GetDeviceQualifierDesc(uint16_t *length)
  8005490:	46bd      	mov	sp, r7
  8005492:	f85d 7b04 	ldr.w	r7, [sp], #4
  8005496:	4770      	bx	lr
- 8005498:	20000284 	.word	0x20000284
+ 8005498:	20000184 	.word	0x20000184
 
 0800549c <USBD_CUSTOM_HID_RegisterInterface>:
   * @param  fops: CUSTOMHID Interface callback
@@ -17004,7 +17004,7 @@ static USBD_StatusTypeDef USBD_SetConfig(USBD_HandleTypeDef *pdev, USBD_SetupReq
  8006746:	46bd      	mov	sp, r7
  8006748:	bd80      	pop	{r7, pc}
  800674a:	bf00      	nop
- 800674c:	20000420 	.word	0x20000420
+ 800674c:	20000308 	.word	0x20000308
 
 08006750 <USBD_GetConfig>:
   * @param  pdev: device instance
@@ -17767,80 +17767,80 @@ USBD_StatusTypeDef USBD_CtlReceiveStatus(USBD_HandleTypeDef *pdev)
 void touchscreen_init(void)
 {
  8006b10:	b4b0      	push	{r4, r5, r7}
- 8006b12:	b093      	sub	sp, #76	@ 0x4c
+ 8006b12:	b08f      	sub	sp, #60	@ 0x3c
  8006b14:	af00      	add	r7, sp, #0
 	touchReport.report_ID = REPORTID_TOUCH;
  8006b16:	4b21      	ldr	r3, [pc, #132]	@ (8006b9c <touchscreen_init+0x8c>)
  8006b18:	2201      	movs	r2, #1
  8006b1a:	701a      	strb	r2, [r3, #0]
 	Contact contact_0 = {0};
- 8006b1c:	f107 0334 	add.w	r3, r7, #52	@ 0x34
+ 8006b1c:	f107 0328 	add.w	r3, r7, #40	@ 0x28
  8006b20:	2200      	movs	r2, #0
  8006b22:	601a      	str	r2, [r3, #0]
  8006b24:	605a      	str	r2, [r3, #4]
  8006b26:	609a      	str	r2, [r3, #8]
- 8006b28:	60da      	str	r2, [r3, #12]
 	Contact contact_1 = {0};
- 8006b2a:	f107 0324 	add.w	r3, r7, #36	@ 0x24
- 8006b2e:	2200      	movs	r2, #0
- 8006b30:	601a      	str	r2, [r3, #0]
- 8006b32:	605a      	str	r2, [r3, #4]
- 8006b34:	609a      	str	r2, [r3, #8]
- 8006b36:	60da      	str	r2, [r3, #12]
+ 8006b28:	f107 031c 	add.w	r3, r7, #28
+ 8006b2c:	2200      	movs	r2, #0
+ 8006b2e:	601a      	str	r2, [r3, #0]
+ 8006b30:	605a      	str	r2, [r3, #4]
+ 8006b32:	609a      	str	r2, [r3, #8]
 	Contact contacts[2] = {contact_0, contact_1};
- 8006b38:	1d3c      	adds	r4, r7, #4
- 8006b3a:	f107 0334 	add.w	r3, r7, #52	@ 0x34
- 8006b3e:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
- 8006b40:	e884 000f 	stmia.w	r4, {r0, r1, r2, r3}
- 8006b44:	f107 0414 	add.w	r4, r7, #20
- 8006b48:	f107 0324 	add.w	r3, r7, #36	@ 0x24
- 8006b4c:	cb0f      	ldmia	r3, {r0, r1, r2, r3}
- 8006b4e:	e884 000f 	stmia.w	r4, {r0, r1, r2, r3}
+ 8006b34:	1d3b      	adds	r3, r7, #4
+ 8006b36:	f107 0228 	add.w	r2, r7, #40	@ 0x28
+ 8006b3a:	ca07      	ldmia	r2, {r0, r1, r2}
+ 8006b3c:	e883 0007 	stmia.w	r3, {r0, r1, r2}
+ 8006b40:	f107 0310 	add.w	r3, r7, #16
+ 8006b44:	f107 021c 	add.w	r2, r7, #28
+ 8006b48:	ca07      	ldmia	r2, {r0, r1, r2}
+ 8006b4a:	e883 0007 	stmia.w	r3, {r0, r1, r2}
 	memcpy(touchReport.contacts, contacts, sizeof(contacts));
- 8006b52:	4b12      	ldr	r3, [pc, #72]	@ (8006b9c <touchscreen_init+0x8c>)
- 8006b54:	1c5c      	adds	r4, r3, #1
- 8006b56:	1d3d      	adds	r5, r7, #4
- 8006b58:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
- 8006b5a:	6020      	str	r0, [r4, #0]
- 8006b5c:	6061      	str	r1, [r4, #4]
- 8006b5e:	60a2      	str	r2, [r4, #8]
- 8006b60:	60e3      	str	r3, [r4, #12]
- 8006b62:	cd0f      	ldmia	r5!, {r0, r1, r2, r3}
- 8006b64:	6120      	str	r0, [r4, #16]
- 8006b66:	6161      	str	r1, [r4, #20]
- 8006b68:	61a2      	str	r2, [r4, #24]
- 8006b6a:	61e3      	str	r3, [r4, #28]
+ 8006b4e:	4b13      	ldr	r3, [pc, #76]	@ (8006b9c <touchscreen_init+0x8c>)
+ 8006b50:	1c5d      	adds	r5, r3, #1
+ 8006b52:	1d3c      	adds	r4, r7, #4
+ 8006b54:	cc0f      	ldmia	r4!, {r0, r1, r2, r3}
+ 8006b56:	6028      	str	r0, [r5, #0]
+ 8006b58:	6069      	str	r1, [r5, #4]
+ 8006b5a:	60aa      	str	r2, [r5, #8]
+ 8006b5c:	60eb      	str	r3, [r5, #12]
+ 8006b5e:	cc03      	ldmia	r4!, {r0, r1}
+ 8006b60:	6128      	str	r0, [r5, #16]
+ 8006b62:	6169      	str	r1, [r5, #20]
 	for (int i = 0; i < TOUCHSCREEN_MAX_CONTACTS; i ++)
- 8006b6c:	2300      	movs	r3, #0
- 8006b6e:	647b      	str	r3, [r7, #68]	@ 0x44
- 8006b70:	e00b      	b.n	8006b8a <touchscreen_init+0x7a>
+ 8006b64:	2300      	movs	r3, #0
+ 8006b66:	637b      	str	r3, [r7, #52]	@ 0x34
+ 8006b68:	e00e      	b.n	8006b88 <touchscreen_init+0x78>
 	{
 		touchReport.contacts[i].contact_ID = i;
- 8006b72:	6c7b      	ldr	r3, [r7, #68]	@ 0x44
- 8006b74:	b2d9      	uxtb	r1, r3
- 8006b76:	4a09      	ldr	r2, [pc, #36]	@ (8006b9c <touchscreen_init+0x8c>)
- 8006b78:	6c7b      	ldr	r3, [r7, #68]	@ 0x44
- 8006b7a:	011b      	lsls	r3, r3, #4
- 8006b7c:	4413      	add	r3, r2
- 8006b7e:	3302      	adds	r3, #2
- 8006b80:	460a      	mov	r2, r1
- 8006b82:	701a      	strb	r2, [r3, #0]
+ 8006b6a:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8006b6c:	b2d8      	uxtb	r0, r3
+ 8006b6e:	490b      	ldr	r1, [pc, #44]	@ (8006b9c <touchscreen_init+0x8c>)
+ 8006b70:	6b7a      	ldr	r2, [r7, #52]	@ 0x34
+ 8006b72:	4613      	mov	r3, r2
+ 8006b74:	005b      	lsls	r3, r3, #1
+ 8006b76:	4413      	add	r3, r2
+ 8006b78:	009b      	lsls	r3, r3, #2
+ 8006b7a:	440b      	add	r3, r1
+ 8006b7c:	3302      	adds	r3, #2
+ 8006b7e:	4602      	mov	r2, r0
+ 8006b80:	701a      	strb	r2, [r3, #0]
 	for (int i = 0; i < TOUCHSCREEN_MAX_CONTACTS; i ++)
- 8006b84:	6c7b      	ldr	r3, [r7, #68]	@ 0x44
- 8006b86:	3301      	adds	r3, #1
- 8006b88:	647b      	str	r3, [r7, #68]	@ 0x44
- 8006b8a:	6c7b      	ldr	r3, [r7, #68]	@ 0x44
- 8006b8c:	2b01      	cmp	r3, #1
- 8006b8e:	ddf0      	ble.n	8006b72 <touchscreen_init+0x62>
+ 8006b82:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8006b84:	3301      	adds	r3, #1
+ 8006b86:	637b      	str	r3, [r7, #52]	@ 0x34
+ 8006b88:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8006b8a:	2b01      	cmp	r3, #1
+ 8006b8c:	dded      	ble.n	8006b6a <touchscreen_init+0x5a>
 	}
 }
+ 8006b8e:	bf00      	nop
  8006b90:	bf00      	nop
- 8006b92:	bf00      	nop
- 8006b94:	374c      	adds	r7, #76	@ 0x4c
- 8006b96:	46bd      	mov	sp, r7
- 8006b98:	bcb0      	pop	{r4, r5, r7}
- 8006b9a:	4770      	bx	lr
- 8006b9c:	20000424 	.word	0x20000424
+ 8006b92:	373c      	adds	r7, #60	@ 0x3c
+ 8006b94:	46bd      	mov	sp, r7
+ 8006b96:	bcb0      	pop	{r4, r5, r7}
+ 8006b98:	4770      	bx	lr
+ 8006b9a:	bf00      	nop
+ 8006b9c:	2000030c 	.word	0x2000030c
 
 08006ba0 <touchscreen_set>:
 
@@ -17860,173 +17860,176 @@ int touchscreen_set(uint8_t ID, uint16_t x, uint16_t y)
 //		return TOUCHSCREEN_FAILURE;
 //	}
 	touchReport.contacts[ID].tip_switch = 1;
- 8006bb2:	79fb      	ldrb	r3, [r7, #7]
- 8006bb4:	4a16      	ldr	r2, [pc, #88]	@ (8006c10 <touchscreen_set+0x70>)
- 8006bb6:	011b      	lsls	r3, r3, #4
- 8006bb8:	4413      	add	r3, r2
- 8006bba:	3301      	adds	r3, #1
- 8006bbc:	2201      	movs	r2, #1
- 8006bbe:	701a      	strb	r2, [r3, #0]
+ 8006bb2:	79fa      	ldrb	r2, [r7, #7]
+ 8006bb4:	4913      	ldr	r1, [pc, #76]	@ (8006c04 <touchscreen_set+0x64>)
+ 8006bb6:	4613      	mov	r3, r2
+ 8006bb8:	005b      	lsls	r3, r3, #1
+ 8006bba:	4413      	add	r3, r2
+ 8006bbc:	009b      	lsls	r3, r3, #2
+ 8006bbe:	440b      	add	r3, r1
+ 8006bc0:	3301      	adds	r3, #1
+ 8006bc2:	2201      	movs	r2, #1
+ 8006bc4:	701a      	strb	r2, [r3, #0]
 	contacts_counted[ID] = 1;
- 8006bc0:	79fb      	ldrb	r3, [r7, #7]
- 8006bc2:	4a14      	ldr	r2, [pc, #80]	@ (8006c14 <touchscreen_set+0x74>)
- 8006bc4:	2101      	movs	r1, #1
- 8006bc6:	54d1      	strb	r1, [r2, r3]
+ 8006bc6:	79fb      	ldrb	r3, [r7, #7]
+ 8006bc8:	4a0f      	ldr	r2, [pc, #60]	@ (8006c08 <touchscreen_set+0x68>)
+ 8006bca:	2101      	movs	r1, #1
+ 8006bcc:	54d1      	strb	r1, [r2, r3]
 	touchReport.contacts[ID].x_t = x;
- 8006bc8:	79fb      	ldrb	r3, [r7, #7]
- 8006bca:	4a11      	ldr	r2, [pc, #68]	@ (8006c10 <touchscreen_set+0x70>)
- 8006bcc:	011b      	lsls	r3, r3, #4
- 8006bce:	4413      	add	r3, r2
- 8006bd0:	88ba      	ldrh	r2, [r7, #4]
- 8006bd2:	f8a3 2003 	strh.w	r2, [r3, #3]
-	touchReport.contacts[ID].x_c = x;
- 8006bd6:	79fb      	ldrb	r3, [r7, #7]
- 8006bd8:	4a0d      	ldr	r2, [pc, #52]	@ (8006c10 <touchscreen_set+0x70>)
- 8006bda:	011b      	lsls	r3, r3, #4
- 8006bdc:	4413      	add	r3, r2
- 8006bde:	88ba      	ldrh	r2, [r7, #4]
- 8006be0:	f8a3 2005 	strh.w	r2, [r3, #5]
+ 8006bce:	79fa      	ldrb	r2, [r7, #7]
+ 8006bd0:	490c      	ldr	r1, [pc, #48]	@ (8006c04 <touchscreen_set+0x64>)
+ 8006bd2:	4613      	mov	r3, r2
+ 8006bd4:	005b      	lsls	r3, r3, #1
+ 8006bd6:	4413      	add	r3, r2
+ 8006bd8:	009b      	lsls	r3, r3, #2
+ 8006bda:	440b      	add	r3, r1
+ 8006bdc:	88ba      	ldrh	r2, [r7, #4]
+ 8006bde:	f8a3 2003 	strh.w	r2, [r3, #3]
+//	touchReport.contacts[ID].x_c = x;
 	touchReport.contacts[ID].y_t = y;
- 8006be4:	79fb      	ldrb	r3, [r7, #7]
- 8006be6:	4a0a      	ldr	r2, [pc, #40]	@ (8006c10 <touchscreen_set+0x70>)
- 8006be8:	011b      	lsls	r3, r3, #4
+ 8006be2:	79fa      	ldrb	r2, [r7, #7]
+ 8006be4:	4907      	ldr	r1, [pc, #28]	@ (8006c04 <touchscreen_set+0x64>)
+ 8006be6:	4613      	mov	r3, r2
+ 8006be8:	005b      	lsls	r3, r3, #1
  8006bea:	4413      	add	r3, r2
- 8006bec:	887a      	ldrh	r2, [r7, #2]
- 8006bee:	f8a3 2007 	strh.w	r2, [r3, #7]
-	touchReport.contacts[ID].y_c = y;
- 8006bf2:	79fb      	ldrb	r3, [r7, #7]
- 8006bf4:	4a06      	ldr	r2, [pc, #24]	@ (8006c10 <touchscreen_set+0x70>)
- 8006bf6:	011b      	lsls	r3, r3, #4
- 8006bf8:	4413      	add	r3, r2
- 8006bfa:	3308      	adds	r3, #8
- 8006bfc:	887a      	ldrh	r2, [r7, #2]
- 8006bfe:	f8a3 2001 	strh.w	r2, [r3, #1]
+ 8006bec:	009b      	lsls	r3, r3, #2
+ 8006bee:	440b      	add	r3, r1
+ 8006bf0:	887a      	ldrh	r2, [r7, #2]
+ 8006bf2:	f8a3 2005 	strh.w	r2, [r3, #5]
+//	touchReport.contacts[ID].y_c = y;
 	return TOUCHSCREEN_SUCCESS;
- 8006c02:	2301      	movs	r3, #1
+ 8006bf6:	2301      	movs	r3, #1
 }
- 8006c04:	4618      	mov	r0, r3
- 8006c06:	370c      	adds	r7, #12
- 8006c08:	46bd      	mov	sp, r7
- 8006c0a:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8006c0e:	4770      	bx	lr
- 8006c10:	20000424 	.word	0x20000424
- 8006c14:	20000448 	.word	0x20000448
+ 8006bf8:	4618      	mov	r0, r3
+ 8006bfa:	370c      	adds	r7, #12
+ 8006bfc:	46bd      	mov	sp, r7
+ 8006bfe:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8006c02:	4770      	bx	lr
+ 8006c04:	2000030c 	.word	0x2000030c
+ 8006c08:	20000328 	.word	0x20000328
 
-08006c18 <touchscreen_reset>:
+08006c0c <touchscreen_reset>:
 
 int touchscreen_reset(uint8_t ID)
 {
- 8006c18:	b480      	push	{r7}
- 8006c1a:	b083      	sub	sp, #12
- 8006c1c:	af00      	add	r7, sp, #0
- 8006c1e:	4603      	mov	r3, r0
- 8006c20:	71fb      	strb	r3, [r7, #7]
+ 8006c0c:	b480      	push	{r7}
+ 8006c0e:	b083      	sub	sp, #12
+ 8006c10:	af00      	add	r7, sp, #0
+ 8006c12:	4603      	mov	r3, r0
+ 8006c14:	71fb      	strb	r3, [r7, #7]
 	if (ID >= TOUCHSCREEN_MAX_CONTACTS)
- 8006c22:	79fb      	ldrb	r3, [r7, #7]
- 8006c24:	2b01      	cmp	r3, #1
- 8006c26:	d901      	bls.n	8006c2c <touchscreen_reset+0x14>
+ 8006c16:	79fb      	ldrb	r3, [r7, #7]
+ 8006c18:	2b01      	cmp	r3, #1
+ 8006c1a:	d901      	bls.n	8006c20 <touchscreen_reset+0x14>
 	{
 		return TOUCHSCREEN_FAILURE;
- 8006c28:	2300      	movs	r3, #0
- 8006c2a:	e007      	b.n	8006c3c <touchscreen_reset+0x24>
+ 8006c1c:	2300      	movs	r3, #0
+ 8006c1e:	e00a      	b.n	8006c36 <touchscreen_reset+0x2a>
 	}
 	touchReport.contacts[ID].tip_switch = 0;
- 8006c2c:	79fb      	ldrb	r3, [r7, #7]
- 8006c2e:	4a06      	ldr	r2, [pc, #24]	@ (8006c48 <touchscreen_reset+0x30>)
- 8006c30:	011b      	lsls	r3, r3, #4
- 8006c32:	4413      	add	r3, r2
- 8006c34:	3301      	adds	r3, #1
- 8006c36:	2200      	movs	r2, #0
- 8006c38:	701a      	strb	r2, [r3, #0]
+ 8006c20:	79fa      	ldrb	r2, [r7, #7]
+ 8006c22:	4908      	ldr	r1, [pc, #32]	@ (8006c44 <touchscreen_reset+0x38>)
+ 8006c24:	4613      	mov	r3, r2
+ 8006c26:	005b      	lsls	r3, r3, #1
+ 8006c28:	4413      	add	r3, r2
+ 8006c2a:	009b      	lsls	r3, r3, #2
+ 8006c2c:	440b      	add	r3, r1
+ 8006c2e:	3301      	adds	r3, #1
+ 8006c30:	2200      	movs	r2, #0
+ 8006c32:	701a      	strb	r2, [r3, #0]
 	return TOUCHSCREEN_SUCCESS;
- 8006c3a:	2301      	movs	r3, #1
+ 8006c34:	2301      	movs	r3, #1
 }
- 8006c3c:	4618      	mov	r0, r3
- 8006c3e:	370c      	adds	r7, #12
- 8006c40:	46bd      	mov	sp, r7
- 8006c42:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8006c46:	4770      	bx	lr
- 8006c48:	20000424 	.word	0x20000424
+ 8006c36:	4618      	mov	r0, r3
+ 8006c38:	370c      	adds	r7, #12
+ 8006c3a:	46bd      	mov	sp, r7
+ 8006c3c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8006c40:	4770      	bx	lr
+ 8006c42:	bf00      	nop
+ 8006c44:	2000030c 	.word	0x2000030c
 
-08006c4c <touchscreen_update>:
+08006c48 <touchscreen_update>:
 
 int touchscreen_update(uint16_t scan_time)
 {
- 8006c4c:	b580      	push	{r7, lr}
- 8006c4e:	b086      	sub	sp, #24
- 8006c50:	af00      	add	r7, sp, #0
- 8006c52:	4603      	mov	r3, r0
- 8006c54:	80fb      	strh	r3, [r7, #6]
+ 8006c48:	b580      	push	{r7, lr}
+ 8006c4a:	b086      	sub	sp, #24
+ 8006c4c:	af00      	add	r7, sp, #0
+ 8006c4e:	4603      	mov	r3, r0
+ 8006c50:	80fb      	strh	r3, [r7, #6]
 	int contact_count = 0;
- 8006c56:	2300      	movs	r3, #0
- 8006c58:	617b      	str	r3, [r7, #20]
+ 8006c52:	2300      	movs	r3, #0
+ 8006c54:	617b      	str	r3, [r7, #20]
 	for (int ID = 0; ID < TOUCHSCREEN_MAX_CONTACTS; ID++)
- 8006c5a:	2300      	movs	r3, #0
- 8006c5c:	613b      	str	r3, [r7, #16]
- 8006c5e:	e018      	b.n	8006c92 <touchscreen_update+0x46>
+ 8006c56:	2300      	movs	r3, #0
+ 8006c58:	613b      	str	r3, [r7, #16]
+ 8006c5a:	e01b      	b.n	8006c94 <touchscreen_update+0x4c>
 	{
 		if (contacts_counted[ID])
- 8006c60:	4a1a      	ldr	r2, [pc, #104]	@ (8006ccc <touchscreen_update+0x80>)
- 8006c62:	693b      	ldr	r3, [r7, #16]
- 8006c64:	4413      	add	r3, r2
- 8006c66:	781b      	ldrb	r3, [r3, #0]
- 8006c68:	2b00      	cmp	r3, #0
- 8006c6a:	d002      	beq.n	8006c72 <touchscreen_update+0x26>
+ 8006c5c:	4a1b      	ldr	r2, [pc, #108]	@ (8006ccc <touchscreen_update+0x84>)
+ 8006c5e:	693b      	ldr	r3, [r7, #16]
+ 8006c60:	4413      	add	r3, r2
+ 8006c62:	781b      	ldrb	r3, [r3, #0]
+ 8006c64:	2b00      	cmp	r3, #0
+ 8006c66:	d002      	beq.n	8006c6e <touchscreen_update+0x26>
 		{
 			contact_count++;
- 8006c6c:	697b      	ldr	r3, [r7, #20]
- 8006c6e:	3301      	adds	r3, #1
- 8006c70:	617b      	str	r3, [r7, #20]
+ 8006c68:	697b      	ldr	r3, [r7, #20]
+ 8006c6a:	3301      	adds	r3, #1
+ 8006c6c:	617b      	str	r3, [r7, #20]
 		}
 		if (touchReport.contacts[ID].tip_switch == 0)
- 8006c72:	4a17      	ldr	r2, [pc, #92]	@ (8006cd0 <touchscreen_update+0x84>)
- 8006c74:	693b      	ldr	r3, [r7, #16]
- 8006c76:	011b      	lsls	r3, r3, #4
- 8006c78:	4413      	add	r3, r2
- 8006c7a:	3301      	adds	r3, #1
- 8006c7c:	781b      	ldrb	r3, [r3, #0]
- 8006c7e:	2b00      	cmp	r3, #0
- 8006c80:	d104      	bne.n	8006c8c <touchscreen_update+0x40>
+ 8006c6e:	4918      	ldr	r1, [pc, #96]	@ (8006cd0 <touchscreen_update+0x88>)
+ 8006c70:	693a      	ldr	r2, [r7, #16]
+ 8006c72:	4613      	mov	r3, r2
+ 8006c74:	005b      	lsls	r3, r3, #1
+ 8006c76:	4413      	add	r3, r2
+ 8006c78:	009b      	lsls	r3, r3, #2
+ 8006c7a:	440b      	add	r3, r1
+ 8006c7c:	3301      	adds	r3, #1
+ 8006c7e:	781b      	ldrb	r3, [r3, #0]
+ 8006c80:	2b00      	cmp	r3, #0
+ 8006c82:	d104      	bne.n	8006c8e <touchscreen_update+0x46>
 		{
 			contacts_counted[ID] = 0;
- 8006c82:	4a12      	ldr	r2, [pc, #72]	@ (8006ccc <touchscreen_update+0x80>)
- 8006c84:	693b      	ldr	r3, [r7, #16]
- 8006c86:	4413      	add	r3, r2
- 8006c88:	2200      	movs	r2, #0
- 8006c8a:	701a      	strb	r2, [r3, #0]
+ 8006c84:	4a11      	ldr	r2, [pc, #68]	@ (8006ccc <touchscreen_update+0x84>)
+ 8006c86:	693b      	ldr	r3, [r7, #16]
+ 8006c88:	4413      	add	r3, r2
+ 8006c8a:	2200      	movs	r2, #0
+ 8006c8c:	701a      	strb	r2, [r3, #0]
 	for (int ID = 0; ID < TOUCHSCREEN_MAX_CONTACTS; ID++)
- 8006c8c:	693b      	ldr	r3, [r7, #16]
- 8006c8e:	3301      	adds	r3, #1
- 8006c90:	613b      	str	r3, [r7, #16]
- 8006c92:	693b      	ldr	r3, [r7, #16]
- 8006c94:	2b01      	cmp	r3, #1
- 8006c96:	dde3      	ble.n	8006c60 <touchscreen_update+0x14>
+ 8006c8e:	693b      	ldr	r3, [r7, #16]
+ 8006c90:	3301      	adds	r3, #1
+ 8006c92:	613b      	str	r3, [r7, #16]
+ 8006c94:	693b      	ldr	r3, [r7, #16]
+ 8006c96:	2b01      	cmp	r3, #1
+ 8006c98:	dde0      	ble.n	8006c5c <touchscreen_update+0x14>
 		}
 	}
 	touchReport.contact_count = contact_count;
- 8006c98:	697b      	ldr	r3, [r7, #20]
- 8006c9a:	b2da      	uxtb	r2, r3
- 8006c9c:	4b0c      	ldr	r3, [pc, #48]	@ (8006cd0 <touchscreen_update+0x84>)
- 8006c9e:	f883 2023 	strb.w	r2, [r3, #35]	@ 0x23
+ 8006c9a:	697b      	ldr	r3, [r7, #20]
+ 8006c9c:	b2da      	uxtb	r2, r3
+ 8006c9e:	4b0c      	ldr	r3, [pc, #48]	@ (8006cd0 <touchscreen_update+0x88>)
+ 8006ca0:	76da      	strb	r2, [r3, #27]
 	touchReport.scan_time = scan_time;
- 8006ca2:	4b0b      	ldr	r3, [pc, #44]	@ (8006cd0 <touchscreen_update+0x84>)
+ 8006ca2:	4b0b      	ldr	r3, [pc, #44]	@ (8006cd0 <touchscreen_update+0x88>)
  8006ca4:	88fa      	ldrh	r2, [r7, #6]
- 8006ca6:	f8a3 2021 	strh.w	r2, [r3, #33]	@ 0x21
+ 8006ca6:	f8a3 2019 	strh.w	r2, [r3, #25]
 	int result = USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
- 8006caa:	2224      	movs	r2, #36	@ 0x24
- 8006cac:	4908      	ldr	r1, [pc, #32]	@ (8006cd0 <touchscreen_update+0x84>)
- 8006cae:	4809      	ldr	r0, [pc, #36]	@ (8006cd4 <touchscreen_update+0x88>)
+ 8006caa:	221c      	movs	r2, #28
+ 8006cac:	4908      	ldr	r1, [pc, #32]	@ (8006cd0 <touchscreen_update+0x88>)
+ 8006cae:	4809      	ldr	r0, [pc, #36]	@ (8006cd4 <touchscreen_update+0x8c>)
  8006cb0:	f7fe fa86 	bl	80051c0 <USBD_CUSTOM_HID_SendReport>
  8006cb4:	4603      	mov	r3, r0
  8006cb6:	60fb      	str	r3, [r7, #12]
 	if (result == USBD_OK)
  8006cb8:	68fb      	ldr	r3, [r7, #12]
  8006cba:	2b00      	cmp	r3, #0
- 8006cbc:	d101      	bne.n	8006cc2 <touchscreen_update+0x76>
+ 8006cbc:	d101      	bne.n	8006cc2 <touchscreen_update+0x7a>
 	{
 		return TOUCHSCREEN_SUCCESS;
  8006cbe:	2301      	movs	r3, #1
- 8006cc0:	e000      	b.n	8006cc4 <touchscreen_update+0x78>
+ 8006cc0:	e000      	b.n	8006cc4 <touchscreen_update+0x7c>
 	}
 	return TOUCHSCREEN_FAILURE;
  8006cc2:	2300      	movs	r3, #0
@@ -18035,9 +18038,9 @@ int touchscreen_update(uint16_t scan_time)
  8006cc6:	3718      	adds	r7, #24
  8006cc8:	46bd      	mov	sp, r7
  8006cca:	bd80      	pop	{r7, pc}
- 8006ccc:	20000448 	.word	0x20000448
- 8006cd0:	20000424 	.word	0x20000424
- 8006cd4:	2000044c 	.word	0x2000044c
+ 8006ccc:	20000328 	.word	0x20000328
+ 8006cd0:	2000030c 	.word	0x2000030c
+ 8006cd4:	2000032c 	.word	0x2000032c
 
 08006cd8 <MX_USB_DEVICE_Init>:
 /**
@@ -18104,10 +18107,10 @@ void MX_USB_DEVICE_Init(void)
 }
  8006d24:	bf00      	nop
  8006d26:	bd80      	pop	{r7, pc}
- 8006d28:	200003a0 	.word	0x200003a0
- 8006d2c:	2000044c 	.word	0x2000044c
- 8006d30:	20000214 	.word	0x20000214
- 8006d34:	20000390 	.word	0x20000390
+ 8006d28:	20000288 	.word	0x20000288
+ 8006d2c:	2000032c 	.word	0x2000032c
+ 8006d30:	20000114 	.word	0x20000114
+ 8006d34:	20000278 	.word	0x20000278
 
 08006d38 <CUSTOM_HID_Init_FS>:
 /**
@@ -18187,7 +18190,7 @@ static int8_t CUSTOM_HID_OutEvent_FS(uint8_t event_idx, uint8_t state)
  8006d7e:	3708      	adds	r7, #8
  8006d80:	46bd      	mov	sp, r7
  8006d82:	bd80      	pop	{r7, pc}
- 8006d84:	2000044c 	.word	0x2000044c
+ 8006d84:	2000032c 	.word	0x2000032c
 
 08006d88 <USBD_FS_DeviceDescriptor>:
   * @param  speed : Current device speed
@@ -18215,7 +18218,7 @@ uint8_t * USBD_FS_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
  8006da0:	46bd      	mov	sp, r7
  8006da2:	f85d 7b04 	ldr.w	r7, [sp], #4
  8006da6:	4770      	bx	lr
- 8006da8:	200003c0 	.word	0x200003c0
+ 8006da8:	200002a8 	.word	0x200002a8
 
 08006dac <USBD_FS_LangIDStrDescriptor>:
   * @param  speed : Current device speed
@@ -18243,7 +18246,7 @@ uint8_t * USBD_FS_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
  8006dc4:	46bd      	mov	sp, r7
  8006dc6:	f85d 7b04 	ldr.w	r7, [sp], #4
  8006dca:	4770      	bx	lr
- 8006dcc:	200003e0 	.word	0x200003e0
+ 8006dcc:	200002c8 	.word	0x200002c8
 
 08006dd0 <USBD_FS_ProductStrDescriptor>:
   * @param  speed : Current device speed
@@ -18286,7 +18289,7 @@ uint8_t * USBD_FS_ProductStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length
  8006dfe:	46bd      	mov	sp, r7
  8006e00:	bd80      	pop	{r7, pc}
  8006e02:	bf00      	nop
- 8006e04:	20000728 	.word	0x20000728
+ 8006e04:	20000608 	.word	0x20000608
  8006e08:	08007708 	.word	0x08007708
 
 08006e0c <USBD_FS_ManufacturerStrDescriptor>:
@@ -18315,7 +18318,7 @@ uint8_t * USBD_FS_ManufacturerStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *l
  8006e26:	3708      	adds	r7, #8
  8006e28:	46bd      	mov	sp, r7
  8006e2a:	bd80      	pop	{r7, pc}
- 8006e2c:	20000728 	.word	0x20000728
+ 8006e2c:	20000608 	.word	0x20000608
  8006e30:	08007728 	.word	0x08007728
 
 08006e34 <USBD_FS_SerialStrDescriptor>:
@@ -18351,7 +18354,7 @@ uint8_t * USBD_FS_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
  8006e4e:	3708      	adds	r7, #8
  8006e50:	46bd      	mov	sp, r7
  8006e52:	bd80      	pop	{r7, pc}
- 8006e54:	200003e4 	.word	0x200003e4
+ 8006e54:	200002cc 	.word	0x200002cc
 
 08006e58 <USBD_FS_ConfigStrDescriptor>:
   * @param  speed : Current device speed
@@ -18394,7 +18397,7 @@ uint8_t * USBD_FS_ConfigStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
  8006e86:	46bd      	mov	sp, r7
  8006e88:	bd80      	pop	{r7, pc}
  8006e8a:	bf00      	nop
- 8006e8c:	20000728 	.word	0x20000728
+ 8006e8c:	20000608 	.word	0x20000608
  8006e90:	0800773c 	.word	0x0800773c
 
 08006e94 <USBD_FS_InterfaceStrDescriptor>:
@@ -18438,7 +18441,7 @@ uint8_t * USBD_FS_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *leng
  8006ec2:	46bd      	mov	sp, r7
  8006ec4:	bd80      	pop	{r7, pc}
  8006ec6:	bf00      	nop
- 8006ec8:	20000728 	.word	0x20000728
+ 8006ec8:	20000608 	.word	0x20000608
  8006ecc:	08007750 	.word	0x08007750
 
 08006ed0 <USBD_FS_USR_BOSDescriptor>:
@@ -18467,7 +18470,7 @@ uint8_t * USBD_FS_USR_BOSDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
  8006ee8:	46bd      	mov	sp, r7
  8006eea:	f85d 7b04 	ldr.w	r7, [sp], #4
  8006eee:	4770      	bx	lr
- 8006ef0:	200003d4 	.word	0x200003d4
+ 8006ef0:	200002bc 	.word	0x200002bc
 
 08006ef4 <Get_SerialNum>:
   * @brief  Create the serial number string descriptor
@@ -18527,8 +18530,8 @@ static void Get_SerialNum(void)
  8006f38:	1fff7a10 	.word	0x1fff7a10
  8006f3c:	1fff7a14 	.word	0x1fff7a14
  8006f40:	1fff7a18 	.word	0x1fff7a18
- 8006f44:	200003e6 	.word	0x200003e6
- 8006f48:	200003f6 	.word	0x200003f6
+ 8006f44:	200002ce 	.word	0x200002ce
+ 8006f48:	200002de 	.word	0x200002de
 
 08006f4c <IntToUnicode>:
   * @param  pbuf: pointer to the buffer
@@ -19206,7 +19209,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
  8007312:	3708      	adds	r7, #8
  8007314:	46bd      	mov	sp, r7
  8007316:	bd80      	pop	{r7, pc}
- 8007318:	20000928 	.word	0x20000928
+ 8007318:	20000808 	.word	0x20000808
 
 0800731c <USBD_LL_Start>:
   * @brief  Starts the low level portion of the device driver.
@@ -19745,7 +19748,7 @@ void *USBD_static_malloc(uint32_t size)
  8007620:	f85d 7b04 	ldr.w	r7, [sp], #4
  8007624:	4770      	bx	lr
  8007626:	bf00      	nop
- 8007628:	20000e0c 	.word	0x20000e0c
+ 8007628:	20000cec 	.word	0x20000cec
 
 0800762c <USBD_static_free>:
   * @brief  Dummy memory free

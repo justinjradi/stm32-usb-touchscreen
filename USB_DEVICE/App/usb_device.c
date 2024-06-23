@@ -38,13 +38,13 @@ typedef struct __attribute__((packed))
 	uint8_t tip_switch;
 	uint8_t contact_ID;
 	uint16_t x_t;
-	uint16_t x_c;
+//	uint16_t x_c;
 	uint16_t y_t;
-	uint16_t y_c;
+//	uint16_t y_c;
 	uint16_t width;
 	uint16_t height;
 	uint16_t azimuth;
-} Contact;	// contact size = 16 bytes
+} Contact;	// contact size = 12 bytes
 
 typedef struct __attribute__((packed))
 {
@@ -100,9 +100,9 @@ int touchscreen_set(uint8_t ID, uint16_t x, uint16_t y)
 	touchReport.contacts[ID].tip_switch = 1;
 	contacts_counted[ID] = 1;
 	touchReport.contacts[ID].x_t = x;
-	touchReport.contacts[ID].x_c = x;
+//	touchReport.contacts[ID].x_c = x;
 	touchReport.contacts[ID].y_t = y;
-	touchReport.contacts[ID].y_c = y;
+//	touchReport.contacts[ID].y_c = y;
 	return TOUCHSCREEN_SUCCESS;
 }
 

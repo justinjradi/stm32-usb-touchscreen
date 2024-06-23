@@ -61,7 +61,7 @@ EndBSPDependencies */
   * @{
   */
 
-uint8_t maxCountFeatureReport[257] = {REPORTID_MAX_COUNT, TOUCHSCREEN_MAX_CONTACTS};
+uint8_t maxCountFeatureReport[2] = {REPORTID_MAX_COUNT, TOUCHSCREEN_MAX_CONTACTS};
 uint8_t certificationFeatureReport[257] = {
 		REPORTID_CERTIFICATION,
 		0xfc, 0x28, 0xfe, 0x84, 0x40, 0xcb, 0x9a, 0x87, 0x0d, 0xbe, 0x57, 0x3c, 0xb6, 0x70, 0x09, 0x88,
