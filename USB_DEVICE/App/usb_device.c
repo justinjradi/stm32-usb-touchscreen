@@ -52,7 +52,7 @@ typedef struct __attribute__((packed))
 	uint8_t contact_count;
 } TouchReport;	// touch report size = 4 + (contact size * TOUCHSCREEN_MAX_CONTACTS)
 
-Contact *contacts[TOUCHSCREEN_MAX_CONTACTS];
+Contact* contacts[TOUCHSCREEN_MAX_CONTACTS];
 /* USER CODE END PV */
 
 /* USER CODE BEGIN PFP */
@@ -77,44 +77,45 @@ USBD_HandleTypeDef hUsbDeviceFS;
 
 void touchscreen_set(uint8_t contact_ID, uint16_t x, uint16_t y)
 {
-	if (*contacts[contact_ID] == 0)
+	if (contacts[contact_ID] == NULL)
 	{
-		Contact empty_contact;
-		// allocate memory for contact
-		// give pointer to array
-		memcpy(contacts[contact_ID], empty_contact, sizeof(empty_contact));
+		contacts[contact_ID] = (Contact*)calloc(sizeof(Contact));
 	}
-	contacts[contact_ID].tip_switch = 1;
-	contacts[contact_ID].x = x;
-	contacts[contact_ID].y = y;
+	*contacts[contact_ID].tip_switch = 1;
+	*contacts[contact_ID].x = x;
+	*contacts[contact_ID].y = y;
 }
 
 void touchscreen_reset(uint8_t contact_ID)
 {
-	contacts[contact_ID].tip_switch = 0;
+	*contacts[contact_ID].tip_switch = 0;
 }
 
 int touchscreen_update(uint16_t scan_time)
 {
+	TouchReport touchReport;
+	touchReport.report_ID = REPORTID_TOUCH;
+	touchReport.scan_time = scan_time;
 	int contact_count = 0;
 	int j = 0;
 	for (int i = 0; i < TOUCHSCREEN_MAX_CONTACTS; i++)
 	{
-		if (contacts[i] == 0)
+		if (contacts[i] == NULL)
 		{
 			continue;
 		}
-		TouchReport touchReport;
-		report.contacts[j] = contacts[i];
+		touchReport.contacts[j] = *contacts[i];
 		j++;
-		if (contacts[i].tip_switch == 0)
+		if (*contacts[i].tip_switch == 0)
 		{
-			contacts[i] = 0;
-			// free memory
+			free(contacts[i]);
+			contacts[i] = NULL;
 		}
 	}
-	touchReport.report_ID = REPORTID_TOUCH;
-	touchReport.scan_time = scan_time;
+	for (j; j < TOUCHSCREEN_MAX_CONTACTS; j++)
+	{
+		memset(touchReport.contacts[j], 0, sizeof (Contact));
+	}
 	touchReport.contact_count = contact_count;
 	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
 }
