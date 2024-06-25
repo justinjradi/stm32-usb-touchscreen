@@ -45,7 +45,7 @@ extern "C" {
 #define REPORTID_MAX_COUNT														0x02
 #define REPORTID_CERTIFICATION												0x44
 
-#define TOUCHSCREEN_MAX_CONTACTS															2				// Any changes must be reflected in report descriptor!
+#define TOUCHSCREEN_MAX_CONTACTS															5				// Any changes must be reflected in report descriptor!
 #define TOUCHSCREEN_WIDTH																			1920
 #define TOUCHSCREEN_HEIGHT																		1080
 

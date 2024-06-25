@@ -39,10 +39,7 @@ typedef struct __attribute__((packed))
 	uint8_t contact_ID;
 	uint16_t x;
 	uint16_t y;
-	uint16_t width;
-	uint16_t height;
-	uint16_t azimuth;
-} Contact;	// contact size = 12 bytes
+} Contact;	// contact size = 6 bytes
 
 typedef struct __attribute__((packed))
 {
@@ -50,10 +47,9 @@ typedef struct __attribute__((packed))
 	Contact reported_contacts[TOUCHSCREEN_MAX_CONTACTS];
 	uint16_t scan_time;
 	uint8_t contact_count;
-} TouchReport;	// touch report size = 4 + (contact size * TOUCHSCREEN_MAX_CONTACTS)
+} TouchReport;	// touch report size = 4 + (contact size * TOUCHSCREEN_MAX_CONTACTS) = 4 + 30 = 34
 
 Contact contacts_by_ID[TOUCHSCREEN_MAX_CONTACTS];
-uint8_t is_reported[TOUCHSCREEN_MAX_CONTACTS];
 /* USER CODE END PV */
 
 /* USER CODE BEGIN PFP */
@@ -88,33 +84,26 @@ void touchscreen_reset(uint8_t contact_ID)
 	contacts_by_ID[contact_ID].tip_switch = 0;
 }
 
-void touchscreen_update(int scan_time)
+void touchscreen_update(int scan_time_ms)
 {
 	TouchReport touchReport;
 	int reporting_order = 0;
-	// Fill list of reported contacts
 	for (int id = 0; id < TOUCHSCREEN_MAX_CONTACTS; id++)
 	{
-		if (is_reported[id])
+		if (contacts_by_ID[id].tip_switch)
 		{
+			contacts_by_ID[id].contact_ID = id;
 			touchReport.reported_contacts[reporting_order] = contacts_by_ID[id];
 			reporting_order++;
 		}
-		// Remove recently or current reset contacts from being reported next time function is called
-		if (contacts_by_ID[id].tip_switch == 0)
-		{
-			is_reported[id] = 0;
-		}
 	}
-	// Clear remaining contact slots in report
 	for (int j = reporting_order; j < TOUCHSCREEN_MAX_CONTACTS; j++)
 	{
-		memset(touchReport.reported_contacts(j), 0, sizeof (Contact));
+		memset(&touchReport.reported_contacts[j], 0, sizeof (Contact));
 	}
-	// Set remaining parameters and send report
 	touchReport.report_ID = REPORTID_TOUCH;
-	touchReport.scan_time = (uint16_t) (scan_time * 10);	// Convert 100μs units to 1ms units and let overflow wrap around
-	touchReport.contact_count = contact_reporting_order;
+	touchReport.scan_time = (uint16_t) (scan_time_ms * 10);	// Convert 100μs units to 1ms units and let overflow wrap around
+	touchReport.contact_count = reporting_order;
 	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
 }
 

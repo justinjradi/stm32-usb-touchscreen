@@ -89,7 +89,6 @@ int main(void)
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   int user_button_pressed = 0;
-  touchscreen_init();
   /* USER CODE END 2 */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -106,60 +105,12 @@ int main(void)
 				HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
 				user_button_pressed = 0;
 
-//				int x_0_0 = 600;
-//				int y_0_0 = 500;
-//				int x_1_0 = 600;
-//				int y_1_0 = 600;
-//				int dx = 10;
-//
-//				for (int i = 0; i < 1; i++)
-//				{
-//					touchscreen_set(0, x_0_0 + dx*i, y_0_0);
-////					touchscreen_set(1, x_1_0 + dx*i, y_1_0);
-//					HAL_Delay(50);
-//					touchscreen_update((uint16_t)(HAL_GetTick() * 10));
-//				}
-//				HAL_Delay(50);
-//				touchscreen_reset(0);
-//				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
-//				HAL_Delay(50);
-//				touchscreen_reset(0);
-//				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
 
-				int a = touchscreen_set(1, 2047, 2047);
-				int b = touchscreen_update((uint16_t)(HAL_GetTick() * 10));
-				HAL_Delay(500);
-				touchscreen_reset(1);
-				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
-				touchscreen_reset(1);
-				HAL_Delay(100);
-				touchscreen_update((uint16_t)(HAL_GetTick() * 10));
-
+				move();
+				HAL_Delay(250);
+				tap();
 				HAL_Delay(250);
 			}
-
-//  	if (HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin))
-//  	{
-//  		user_button_pressed = 1;
-//  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);
-//  		scan_time = (uint16_t)(HAL_GetTick() * 10);
-//  		touchscreen_press(scan_time);
-//  		HAL_Delay(100);
-//  	}
-//  	else if (user_button_pressed)			// Remove contact
-//  	{
-//  		user_button_pressed = 0;
-//  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
-//  		scan_time = (uint16_t)(HAL_GetTick() * 10);
-//  		touchscreen_unpress(scan_time);
-//  		HAL_Delay(100);
-//  	} else		// Send reset state
-//  	{
-//  		HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_RESET);
-//			scan_time = (uint16_t)(HAL_GetTick() * 10);
-//			touchscreen_reset(scan_time);
-//			HAL_Delay(100);
-//  	}
 
     /* USER CODE END WHILE */
 
@@ -252,7 +203,47 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void move(void)
+{
+	int x_0 = 860;
+	int y_0 = 540;
+	int x_1 = 960;
+	int y_1 = 540;
+	int dx_0 = 0;
+	int dy_0 = 1;
+	int dx_1 = 0;
+	int dy_1 = 1;
 
+	int dt = 5;
+	int max = 100;
+
+	for (int i = 0; i < max; i++)
+	{
+		touchscreen_set(0, x_0 + dx_0*i, y_0 + dy_0*i);
+		touchscreen_set(1, x_1 + dx_1*i, y_1 + dy_1*i);
+		touchscreen_update(HAL_GetTick());
+		HAL_Delay(dt);
+	}
+	touchscreen_reset(0);
+	touchscreen_reset(1);
+	touchscreen_update(HAL_GetTick());
+}
+
+void tap(void)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		touchscreen_set(i, 600 + 50*i, 900);
+		touchscreen_update(HAL_GetTick());
+		HAL_Delay(200);
+	}
+	for (int i = 4; i > -1; i--)
+	{
+		touchscreen_reset(i);
+		touchscreen_update(HAL_GetTick());
+		HAL_Delay(200);
+	}
+}
 /* USER CODE END 4 */
 
 /**
