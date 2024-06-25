@@ -87,6 +87,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USB_DEVICE_Init();
+  touchscreen_init();
   /* USER CODE BEGIN 2 */
   int user_button_pressed = 0;
   /* USER CODE END 2 */
@@ -106,9 +107,11 @@ int main(void)
 				user_button_pressed = 0;
 
 
-				move();
-				HAL_Delay(250);
-				tap();
+				touchscreen_set(2, 700, 700);
+				touchscreen_update(HAL_GetTick());
+				HAL_Delay(700);
+				touchscreen_reset(2);
+				touchscreen_update2(HAL_GetTick());
 				HAL_Delay(250);
 			}
 

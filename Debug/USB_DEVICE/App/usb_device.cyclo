@@ -1,4 +1,6 @@
-../USB_DEVICE/App/usb_device.c:75:6:touchscreen_set	1
-../USB_DEVICE/App/usb_device.c:82:6:touchscreen_reset	1
-../USB_DEVICE/App/usb_device.c:87:6:touchscreen_update	4
-../USB_DEVICE/App/usb_device.c:116:6:MX_USB_DEVICE_Init	5
+../USB_DEVICE/App/usb_device.c:75:6:touchscreen_init	2
+../USB_DEVICE/App/usb_device.c:83:6:touchscreen_set	1
+../USB_DEVICE/App/usb_device.c:90:6:touchscreen_reset	1
+../USB_DEVICE/App/usb_device.c:95:6:touchscreen_update	4
+../USB_DEVICE/App/usb_device.c:118:6:touchscreen_update2	2
+../USB_DEVICE/App/usb_device.c:137:6:MX_USB_DEVICE_Init	5

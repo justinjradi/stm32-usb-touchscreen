@@ -72,6 +72,14 @@ USBD_HandleTypeDef hUsbDeviceFS;
  */
 /* USER CODE BEGIN 1 */
 
+void touchscreen_init(void)
+{
+	for (int i = 0; i < TOUCHSCREEN_MAX_CONTACTS; i++)
+	{
+		memset(&contacts_by_ID[i], 0, sizeof (Contact));
+	}
+}
+
 void touchscreen_set(uint8_t contact_ID, uint16_t x, uint16_t y)
 {
 	contacts_by_ID[contact_ID].tip_switch = 1;
@@ -104,6 +112,19 @@ void touchscreen_update(int scan_time_ms)
 	touchReport.report_ID = REPORTID_TOUCH;
 	touchReport.scan_time = (uint16_t) (scan_time_ms * 10);	// Convert 100μs units to 1ms units and let overflow wrap around
 	touchReport.contact_count = reporting_order;
+	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
+}
+
+void touchscreen_update2(int scan_time_ms)
+{
+	TouchReport touchReport;
+	touchReport.report_ID = REPORTID_TOUCH;
+	for (int id = 0; id < TOUCHSCREEN_MAX_CONTACTS; id++)
+	{
+		touchReport.reported_contacts[id] = contacts_by_ID[id];
+	}
+	touchReport.scan_time = (uint16_t) (scan_time_ms * 10);	// Convert 100μs units to 1ms units and let overflow wrap around
+	touchReport.contact_count = TOUCHSCREEN_MAX_CONTACTS;
 	USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &touchReport, sizeof (touchReport));
 }
 

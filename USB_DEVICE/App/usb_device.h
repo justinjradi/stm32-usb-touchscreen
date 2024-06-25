@@ -57,9 +57,11 @@
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
+void touchscreen_init(void);
 void touchscreen_set(uint8_t ID, uint16_t x, uint16_t y);
 void touchscreen_reset(uint8_t ID);
-void touchscreen_update(int scan_time);
+void touchscreen_update(int scan_time_ms);
+void touchscreen_update2(int scan_time_ms);
 /* USER CODE END PFP */
 
 /*
